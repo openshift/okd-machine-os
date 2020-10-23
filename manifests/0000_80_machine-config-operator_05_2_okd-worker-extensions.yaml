@@ -1,0 +1,15 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 99-worker-okd-extensions
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+  extensions:
+    - glusterfs
+    - glusterfs-fuse
+    - open-vm-tools
+    - NetworkManager-ovs
