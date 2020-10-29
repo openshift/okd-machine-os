@@ -107,6 +107,14 @@ pushd /tmp/working
   # Fix localtime symlink
   rm -rf etc/localtime
   ln -s ../usr/share/zoneinfo/UTC etc/localtime
+  # disable systemd-resolved.service. Having it enabled breaks machine-api DNS resolution
+  mkdir -p etc/systemd/system/systemd-resolved.service.d
+  echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/systemd-resolved.service.d/disabled.conf
+  mkdir -p etc/NetworkManager/conf.d
+  echo -e "[main]\ndns=default" > etc/NetworkManager/conf.d/dns.conf
+  rm -rf usr/etc/tmpfiles.d/dns.conf
+  mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
+  echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
   mv etc usr/
 popd
 
