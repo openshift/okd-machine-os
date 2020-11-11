@@ -97,7 +97,7 @@ mkdir /tmp/working
 pushd /tmp/working
   # enable crio
   sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
-  dnf module enable -y cri-o:${CRIO_VERSION}
+  dnf --archlist=x86_64 --disablerepo='*' --enablerepo=updates-testing-modular module enable -y cri-o:${CRIO_VERSION}
   yumdownloader --archlist=x86_64 --disablerepo='*' --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
 
   for i in $(find /tmp/rpms/ -iname *.rpm); do
