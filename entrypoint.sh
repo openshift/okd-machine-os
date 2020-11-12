@@ -115,6 +115,27 @@ pushd /tmp/working
   rm -rf usr/etc/tmpfiles.d/dns.conf
   mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
+  # HACK: Update kernel to 5.9
+  mkdir -p etc/systemd/system/multi-user.target.wants
+  cat << EOF > etc/systemd/system/update-kernel.service
+[Unit]
+# Removal of this file signals firstboot completion
+ConditionPathExists=!/etc/ignition-machine-config-encapsulated.json
+ConditionPathExists=!/var/lib/kernel-5.9
+Description=Update Kernel
+After=network.target
+Before=kubelet.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sh -c "sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/* && /usr/bin/rpm-ostree override replace https://kojipkgs.fedoraproject.org//packages/kernel/5.9.8/200.fc33/x86_64/kernel-5.9.8-200.fc33.x86_64.rpm https://kojipkgs.fedoraproject.org//packages/kernel/5.9.8/200.fc33/x86_64/kernel-modules-5.9.8-200.fc33.x86_64.rpm https://kojipkgs.fedoraproject.org//packages/kernel/5.9.8/200.fc33/x86_64/kernel-core-5.9.8-200.fc33.x86_64.rpm && /usr/bin/touch /var/lib/kernel-5.9 && /usr/sbin/reboot"
+Restart=Always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  ln -s ../update-kernel.service etc/systemd/system/multi-user.target.wants
   mv etc usr/
 popd
 
