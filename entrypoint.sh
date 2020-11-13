@@ -115,6 +115,7 @@ pushd /tmp/working
   rm -rf usr/etc/tmpfiles.d/dns.conf
   mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
+  cp -rvf /srv/overlay/* .
   mv etc usr/
 popd
 
