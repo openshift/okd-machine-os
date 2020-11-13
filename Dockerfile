@@ -6,6 +6,7 @@ COPY --from=mcd /usr/bin/machine-config-daemon /srv/addons/usr/libexec/machine-c
 COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
 USER 0
 COPY ./entrypoint.sh /usr/bin
+COPY ./overlay /srv/overlay
 RUN /usr/bin/entrypoint.sh
 
 FROM scratch
