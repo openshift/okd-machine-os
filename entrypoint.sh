@@ -99,11 +99,10 @@ pushd /tmp/working
   sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
   dnf module enable -y cri-o:${CRIO_VERSION}
   yumdownloader --archlist=x86_64 --disablerepo='*' --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+  mkdir usr/lib
+  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode ./usr/lib/rpm
+  rpm -ivh /tmp/rpms/* --nodeps --dbpath $(pwd)/usr/lib/rpm
 
-  for i in $(find /tmp/rpms/ -iname *.rpm); do
-    echo "Extracting $i ..."
-    rpm2cpio $i | cpio -div
-  done
   # Fix localtime symlink
   rm -rf etc/localtime
   ln -s ../usr/share/zoneinfo/UTC etc/localtime
