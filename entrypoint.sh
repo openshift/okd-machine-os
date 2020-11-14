@@ -46,6 +46,7 @@ CRIO_RPMS=(
   cri-tools
 )
 CRIO_VERSION="1.18"
+ADDON_RPMS=/tmp/rpms
 
 # fetch binaries and configure working env, prow doesn't allow init containers or a second container
 dir=/tmp/ostree
@@ -86,6 +87,21 @@ done
 
 YUMDOWNLOADER="yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo=* --releasever=${VERSION_ID} ${REPOLIST}"
 
+# Install CRI-O / hyperkube / oc RPMs updating RPM DB
+mkdir /tmp/working
+pushd /tmp/working
+  # Extract RPM DB
+  mkdir -p usr/lib
+  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode $(pwd)/usr/lib/rpm
+
+  # Download crio from modular repo
+  sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
+  dnf --installroot=$(pwd) --releasever=${VERSION_ID} module enable -y cri-o:${CRIO_VERSION}
+  ${YUMDOWNLOADER} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+  # Install additional RPMs
+  rpm -ivh ${ADDON_RPMS}/* --nodeps --dbpath $(pwd)/usr/lib/rpm --prefix $(pwd)
+popd
+
 # build extension repo
 mkdir /extensions
 pushd /extensions
@@ -94,22 +110,11 @@ pushd /extensions
   createrepo_c --no-database .
 popd
 
-# Fetch CRI-O RPMs
-sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
-dnf module enable -y cri-o:${CRIO_VERSION}
-${YUMDOWNLOADER} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
-
-# inject cri-o, hyperkube RPMs and MCD binary in the ostree commit
-mkdir /tmp/working
+# Overlay additional settings
 pushd /tmp/working
-  # Extract RPM DB
-  mkdir usr/lib
-  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode ./usr/lib/rpm
-  rpm -ivh /tmp/rpms/* --nodeps --dbpath $(pwd)/usr/lib/rpm
-
   # Fix localtime symlink
-  rm -rf etc/localtime
-  ln -s ../usr/share/zoneinfo/UTC etc/localtime
+  #rm -rf etc/localtime
+  #ln -s ../usr/share/zoneinfo/UTC etc/localtime
   # disable systemd-resolved.service. Having it enabled breaks machine-api DNS resolution
   mkdir -p etc/systemd/system/systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/systemd-resolved.service.d/disabled.conf
@@ -118,12 +123,14 @@ pushd /tmp/working
   rm -rf usr/etc/tmpfiles.d/dns.conf
   mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
-  mv etc usr/
 popd
 
 # add binaries (MCD) from /srv/addons
 mkdir -p /tmp/working/usr/bin
 cp -rvf /srv/addons/* /tmp/working/
+
+# move config to /usr/etc so that it would be persisted
+mv /tmp/working/etc /tmp/working/usr/
 
 # build new commit
 coreos-assembler dev-overlay --repo /srv/repo --rev "${REF}" --add-tree /tmp/working --output-ref "${REF}"
