@@ -84,21 +84,25 @@ for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
 done
 
+YUMDOWNLOADER="yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo=* --releasever=${VERSION_ID} ${REPOLIST}"
+
 # build extension repo
 mkdir /extensions
 pushd /extensions
   mkdir okd
-  yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo='*' --destdir=/extensions/okd --releasever=${VERSION_ID} ${REPOLIST} ${EXTENSION_RPMS[*]}
+  ${YUMDOWNLOADER} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
   createrepo_c --no-database .
 popd
+
+# Fetch CRI-O RPMs
+sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
+dnf module enable -y cri-o:${CRIO_VERSION}
+${YUMDOWNLOADER} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
 
 # inject cri-o, hyperkube RPMs and MCD binary in the ostree commit
 mkdir /tmp/working
 pushd /tmp/working
-  # enable crio
-  sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
-  dnf module enable -y cri-o:${CRIO_VERSION}
-  yumdownloader --archlist=x86_64 --disablerepo='*' --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+  # Extract RPM DB
   mkdir usr/lib
   ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode ./usr/lib/rpm
   rpm -ivh /tmp/rpms/* --nodeps --dbpath $(pwd)/usr/lib/rpm
