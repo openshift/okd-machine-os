@@ -84,9 +84,12 @@ for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
 done
 
-YUMDOWNLOADER="yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo=* --releasever=${VERSION_ID} ${REPOLIST}"
+# Extract RPM DB
+mkdir -p /tmp/working/usr/lib
+ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode /tmp/working/usr/lib/rpm
 
 # build extension repo
+YUMDOWNLOADER="yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo=* --releasever=${VERSION_ID} ${REPOLIST}"
 mkdir /extensions
 pushd /extensions
   mkdir okd
@@ -94,22 +97,17 @@ pushd /extensions
   createrepo_c --no-database .
 popd
 
-# Fetch CRI-O RPMs
+# Install CRI-O / hyperkube / oc RPMs
 sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
 dnf module enable -y cri-o:${CRIO_VERSION}
 ${YUMDOWNLOADER} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+rpm -ivh /tmp/rpms/* --nodeps --dbpath /tmp/working/usr/lib/rpm
 
 # inject cri-o, hyperkube RPMs and MCD binary in the ostree commit
-mkdir /tmp/working
 pushd /tmp/working
-  # Extract RPM DB
-  mkdir usr/lib
-  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode ./usr/lib/rpm
-  rpm -ivh /tmp/rpms/* --nodeps --dbpath $(pwd)/usr/lib/rpm
-
   # Fix localtime symlink
-  rm -rf etc/localtime
-  ln -s ../usr/share/zoneinfo/UTC etc/localtime
+  #rm -rf etc/localtime
+  #ln -s ../usr/share/zoneinfo/UTC etc/localtime
   # disable systemd-resolved.service. Having it enabled breaks machine-api DNS resolution
   mkdir -p etc/systemd/system/systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/systemd-resolved.service.d/disabled.conf
@@ -118,6 +116,7 @@ pushd /tmp/working
   rm -rf usr/etc/tmpfiles.d/dns.conf
   mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
   echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
+  # move config to /usr/etc so that it would be persisted
   mv etc usr/
 popd
 
