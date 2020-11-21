@@ -71,6 +71,9 @@ commit_id="$( <${dir}/meta.json jq -r '."ostree-commit"' )"
 mkdir /srv/repo
 curl -L "${tar_url}" | tar xf - -C /srv/repo/ --no-same-owner
 
+# Remove all refs except ${REF} so that bootstrap pivot would not be confused
+ostree --repo=/srv/repo refs | grep -v "${REF}" | xargs -n1 ostree --repo=/srv/repo refs --delete
+
 # use repos from FCOS
 rm -rf /etc/yum.repos.d
 ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/etc/yum.repos.d --user-mode /etc/yum.repos.d
@@ -104,25 +107,17 @@ pushd /tmp/working
     echo "Extracting $i ..."
     rpm2cpio $i | cpio -div
   done
-  # Fix localtime symlink
-  rm -rf etc/localtime
-  ln -s ../usr/share/zoneinfo/UTC etc/localtime
-  # disable systemd-resolved.service. Having it enabled breaks machine-api DNS resolution
-  mkdir -p etc/systemd/system/systemd-resolved.service.d
-  echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/systemd-resolved.service.d/disabled.conf
-  mkdir -p etc/NetworkManager/conf.d
-  echo -e "[main]\ndns=default" > etc/NetworkManager/conf.d/dns.conf
-  rm -rf usr/etc/tmpfiles.d/dns.conf
-  mkdir -p etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d
-  echo -e "[Unit]\nConditionPathExists=/enoent" > etc/systemd/system/coreos-migrate-to-systemd-resolved.service.d/disabled.conf
-  # Workaround for https://github.com/coreos/fedora-coreos-tracker/issues/649
-  cp -rvf /srv/overlay/* .
-  mv etc usr/
-popd
 
-# add binaries (MCD) from /srv/addons
-mkdir -p /tmp/working/usr/bin
-cp -rvf /srv/addons/* /tmp/working/
+  # append additional configuration
+  cp -rvf /srv/overlay/* .
+
+  # move etc configuration to /usr/etc so that it would be merged by rpm-ostree
+  mv etc usr/
+
+  # add binaries (MCD) from /srv/addons
+  mkdir -p usr/bin usr/libexec
+  cp -rvf /srv/addons/* .
+popd
 
 # build new commit
 coreos-assembler dev-overlay --repo /srv/repo --rev "${REF}" --add-tree /tmp/working --output-ref "${REF}"
