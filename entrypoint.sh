@@ -71,6 +71,9 @@ commit_id="$( <${dir}/meta.json jq -r '."ostree-commit"' )"
 mkdir /srv/repo
 curl -L "${tar_url}" | tar xf - -C /srv/repo/ --no-same-owner
 
+# Remove all refs except ${REF} so that bootstrap pivot would not be confused
+ostree --repo=/srv/repo refs | grep -v "${REF}" | xargs -n1 ostree --repo=/srv/repo refs --delete
+
 # use repos from FCOS
 rm -rf /etc/yum.repos.d
 ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/etc/yum.repos.d --user-mode /etc/yum.repos.d
