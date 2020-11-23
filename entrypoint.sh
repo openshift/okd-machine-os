@@ -91,15 +91,15 @@ YUMDOWNLOADER="yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo=*
 mkdir /tmp/working
 pushd /tmp/working
   # Extract RPM DB
-  mkdir -p usr/lib
-  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/lib/rpm --user-mode $(pwd)/usr/lib/rpm
+  mkdir -p usr/share
+  ostree --repo=/srv/repo checkout "${REF}" --subpath /usr/share/rpm --user-mode $(pwd)/usr/share/rpm
 
   # Download crio from modular repo
   sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
-  dnf --installroot=$(pwd) --releasever=${VERSION_ID} module enable -y cri-o:${CRIO_VERSION}
+  dnf --releasever=${VERSION_ID} module enable -y cri-o:${CRIO_VERSION}
   ${YUMDOWNLOADER} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
   # Install additional RPMs
-  rpm -ivh ${ADDON_RPMS}/* --nodeps --dbpath $(pwd)/usr/lib/rpm --prefix $(pwd)
+  rpm -ivh ${ADDON_RPMS}/* --nodeps --dbpath $(pwd)/usr/share/rpm --prefix $(pwd)
 popd
 
 # build extension repo
