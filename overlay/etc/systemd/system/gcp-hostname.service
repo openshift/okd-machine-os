@@ -1,5 +1,8 @@
 [Unit]
 Description=Set GCP Transient Hostname
+# Run for GCP only
+ConditionKernelCommandLine=|ignition.platform.id=gce
+ConditionKernelCommandLine=|ignition.platform.id=gcp
 # Removal of this file signals firstboot completion
 ConditionPathExists=!/etc/ignition-machine-config-encapsulated.json
 # Block services relying on Networking being up.
