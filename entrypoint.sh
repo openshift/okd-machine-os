@@ -8,38 +8,39 @@ REF="fedora/x86_64/coreos/${STREAM}"
 # additional RPMs to install via os-extensions
 EXTENSION_RPMS=(
   attr
+  dpdk
+  gdbm-libs
   glusterfs
   glusterfs-client-xlators
   glusterfs-fuse
+  hwdata
+  kernel-devel
+  libdrm
   libgfrpc0
   libgfxdr0
   libglusterfs0
-  psmisc
-  NetworkManager-ovs
-  openvswitch
-  dpdk
-  gdbm-libs
-  libxcrypt-compat
-  unbound-libs
-  python3-libs
-  libdrm
   libmspack
   libpciaccess
+  libtool-ltdl
+  libxcrypt-compat
+  libxslt
+  NetworkManager-ovs
+  open-vm-tools
+  openvswitch
   pciutils
   pciutils-libs
-  hwdata
+  psmisc
+  python-pip-wheel
+  python-setuptools-wheel
+  python-unversioned-command
+  python3
   python3-libs
   python3-pip
-  python3
-  python-unversioned-command
-  python-pip-wheel
   python3-setuptools
-  python-setuptools-wheel
-  open-vm-tools
+  unbound-libs
+  usbguard
   xmlsec1
   xmlsec1-openssl
-  libxslt
-  libtool-ltdl
 )
 CRIO_RPMS=(
   cri-o
