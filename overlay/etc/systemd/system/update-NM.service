@@ -1,0 +1,14 @@
+[Unit]
+# Removal of this file signals firstboot completion
+ConditionPathExists=!/etc/ignition-machine-config-encapsulated.json
+ConditionPathExists=!/var/lib/nm
+Description=Update NM
+After=network.target
+Before=kubelet.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/sh -c "sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/* && /usr/bin/rpm-ostree uninstall NetworkManager-ovs && rpm-ostree override replace https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-master/fedora-33-x86_64/01811265-NetworkManager/NetworkManager-1.29.4-27271.d0643fbf3b.fc33.x86_64.rpm https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-master/fedora-33-x86_64/01811265-NetworkManager/NetworkManager-libnm-1.29.4-27271.d0643fbf3b.fc33.x86_64.rpm https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-master/fedora-33-x86_64/01811265-NetworkManager/NetworkManager-tui-1.29.4-27271.d0643fbf3b.fc33.x86_64.rpm https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-master/fedora-33-x86_64/01811265-NetworkManager/NetworkManager-team-1.29.4-27271.d0643fbf3b.fc33.x86_64.rpm && rpm-ostree install https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-master/fedora-33-x86_64/01811265-NetworkManager/NetworkManager-ovs-1.29.4-27271.d0643fbf3b.fc33.x86_64.rpm  && /usr/bin/touch /var/lib/nm && /usr/sbin/reboot"
+Restart=Always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
