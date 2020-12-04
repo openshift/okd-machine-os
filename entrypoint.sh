@@ -14,6 +14,7 @@ EXTENSION_RPMS=(
   glusterfs-client-xlators
   glusterfs-fuse
   hwdata
+  kernel-devel
   libdrm
   libgfrpc0
   libgfxdr0
@@ -37,6 +38,7 @@ EXTENSION_RPMS=(
   python3-pip
   python3-setuptools
   unbound-libs
+  usbguard
   xmlsec1
   xmlsec1-openssl
 )
