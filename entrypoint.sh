@@ -58,6 +58,16 @@ EXTENSION_RPMS=(
   xmlsec1
   xmlsec1-openssl
 )
+BOOTSTRAP_RPMS=(
+  libdrm
+  libmspack
+  libpciaccess
+  libtool-ltdl
+  libxslt
+  open-vm-tools
+  xmlsec1
+  xmlsec1-openssl
+)
 CRIO_RPMS=(
   cri-o
   cri-tools
@@ -112,13 +122,15 @@ pushd /extensions
   createrepo_c --no-database .
 popd
 
-# inject cri-o, hyperkube RPMs and MCD binary in the ostree commit
+# inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
 pushd /tmp/working
   # enable crio
   sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-updates-testing-modular.repo
   dnf module enable -y cri-o:${CRIO_VERSION}
   yumdownloader --archlist=x86_64 --disablerepo='*' --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+
+  yumdownloader --archlist=x86_64 --archlist=noarch --disablerepo='*' --destdir=/tmp/rpms  --releasever=${VERSION_ID} ${REPOLIST} ${BOOTSTRAP_RPMS[*]}
 
   for i in $(find /tmp/rpms/ -iname *.rpm); do
     echo "Extracting $i ..."
