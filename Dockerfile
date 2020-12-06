@@ -13,5 +13,6 @@ FROM scratch
 COPY --from=build /srv/ /srv/
 COPY --from=build /extensions/ /extensions/
 COPY manifests/ /manifests/
+COPY bootstrap/ /bootstrap/
 LABEL io.openshift.release.operator=true
 ENTRYPOINT ["/noentry"]
