@@ -150,3 +150,9 @@ popd
 
 # build new commit
 coreos-assembler dev-overlay --repo /srv/repo --rev "${REF}" --add-tree /tmp/working --output-ref "${REF}"
+ostree --repo=/srv/repo ls -X "${REF}" /usr/bin/kubelet > /tmp/working/label.txt
+if ! grep -q ':bin_t:' /tmp/working/label.txt; then
+  echo "error: Invalid label on kubelet"
+  cat /tmp/working/label.txt
+  exit 1
+fi
