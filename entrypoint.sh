@@ -15,6 +15,7 @@ EXTENSION_RPMS=(
   glusterfs-client-xlators
   glusterfs-fuse
   kernel-devel
+  kernel-headers
   libdrm
   libgfrpc0
   libgfxdr0
