@@ -88,9 +88,9 @@ chmod ug+x $HOME/bin/jq
 
 # fetch fcos release info and check whether we've already built this image
 build_url="https://builds.coreos.fedoraproject.org/prod/streams/${STREAM}/builds"
-# curl "${build_url}/builds.json" 2>/dev/null >${dir}/builds.json
-# build_id="$( <"${dir}/builds.json" jq -r '.builds[0].id' )"
-build_id="33.20201209.10.0"
+curl "${build_url}/builds.json" 2>/dev/null >${dir}/builds.json
+build_id="$( <"${dir}/builds.json" jq -r '.builds[0].id' )"
+# build_id="33.20201209.10.0"
 base_url="${build_url}/${build_id}/x86_64"
 curl "${base_url}/meta.json" 2>/dev/null >${dir}/meta.json
 tar_url="${base_url}/$( <${dir}/meta.json jq -r .images.ostree.path )"
