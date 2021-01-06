@@ -73,7 +73,7 @@ CRIO_RPMS=(
   cri-o
   cri-tools
 )
-CRIO_VERSION="1.19"
+CRIO_VERSION="1.20"
 
 # fetch binaries and configure working env, prow doesn't allow init containers or a second container
 dir=/tmp/ostree
