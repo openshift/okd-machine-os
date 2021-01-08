@@ -2,7 +2,7 @@
 set -exuo pipefail
 
 REPOS=()
-STREAM="stable"
+STREAM="next-devel"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional RPMs to install via os-extensions
@@ -88,8 +88,9 @@ chmod ug+x $HOME/bin/jq
 
 # fetch fcos release info and check whether we've already built this image
 build_url="https://builds.coreos.fedoraproject.org/prod/streams/${STREAM}/builds"
-curl "${build_url}/builds.json" 2>/dev/null >${dir}/builds.json
-build_id="$( <"${dir}/builds.json" jq -r '.builds[0].id' )"
+#curl "${build_url}/builds.json" 2>/dev/null >${dir}/builds.json
+#build_id="$( <"${dir}/builds.json" jq -r '.builds[0].id' )"
+build_id="33.20210104.10.0"
 base_url="${build_url}/${build_id}/x86_64"
 curl "${base_url}/meta.json" 2>/dev/null >${dir}/meta.json
 tar_url="${base_url}/$( <${dir}/meta.json jq -r .images.ostree.path )"
@@ -151,3 +152,9 @@ popd
 
 # build new commit
 coreos-assembler dev-overlay --repo /srv/repo --rev "${REF}" --add-tree /tmp/working --output-ref "${REF}"
+ostree --repo=/srv/repo ls -X "${REF}" /usr/bin/kubelet > /tmp/working/label.txt
+if ! grep -q ':bin_t:' /tmp/working/label.txt; then
+  echo "error: Invalid label on kubelet"
+  cat /tmp/working/label.txt
+  exit 1
+fi
