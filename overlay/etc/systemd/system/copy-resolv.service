@@ -1,0 +1,12 @@
+[Unit]
+Description=Copy stub-resolv.conf to resolv.conf
+# Run for vSphere/Openstack only
+ConditionKernelCommandLine=|ignition.platform.id=vmware
+ConditionKernelCommandLine=|ignition.platform.id=openstack
+# Run before NM dispatcher scripts run
+Before=NetworkManager.service
+[Service]
+Type=oneshot
+ExecStart=/bin/cp -rn /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+[Install]
+WantedBy=NetworkManager.service
