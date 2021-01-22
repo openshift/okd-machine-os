@@ -5,6 +5,8 @@
 
 # Copy pivot files
 cp overlay/etc / -rvf
+rm -rf /etc/resolv.conf
+ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 cp overlay/usr/local/bin/* /usr/local/bin/ -rvf
 cp manifests/* /opt/openshift/openshift/ -rvf
 
