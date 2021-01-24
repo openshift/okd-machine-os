@@ -1,10 +1,11 @@
 #!/bin/sh
 set -exuo pipefail
 
-REPOS=()
-STREAM="rawhide"
+STREAM="branched"
 REF="fedora/x86_64/coreos/${STREAM}"
 
+# additional repos to use
+REPOS=()
 # additional RPMs to install via os-extensions
 EXTENSION_RPMS=(
   NetworkManager-ovs
@@ -110,10 +111,20 @@ dnf clean all
 ostree --repo=/srv/repo cat "${REF}" /usr/lib/os-release > /tmp/os-release
 source /tmp/os-release
 
+# Some repos are version-dependent
+CRIO_REPOS=(
+  https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/${CRIO_VERSION}/Fedora_33/
+)
+# TODO add cri-tools when its built for F33
+# https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_${VERSION_ID}/
+
 # prepare a list of repos to download packages from
 REPOLIST="--enablerepo=fedora --enablerepo=updates"
 for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
+done
+for i in "${!CRIO_REPOS[@]}"; do
+  REPOLIST="${REPOLIST} --repofrompath=repo${i},${CRIO_REPOS[$i]}"
 done
 
 # yumdownloader params
@@ -131,8 +142,10 @@ popd
 yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms ${BOOTSTRAP_RPMS[*]}
 
 # download CRI-O RPMs
-dnf module enable -y --enablerepo=updates-testing-modular cri-o:${CRIO_VERSION}
-yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+# There's no F34 CRIO build yet
+VERSION_ID=34
+YUMD_PARAMS="--archlist=x86_64 --archlist=noarch --releasever=${VERSION_ID} ${REPOLIST}"
+yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms ${CRIO_RPMS[*]}
 
 # inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
