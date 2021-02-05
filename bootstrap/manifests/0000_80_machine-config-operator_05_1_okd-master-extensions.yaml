@@ -11,5 +11,4 @@ spec:
   extensions:
     - glusterfs
     - glusterfs-fuse
-    - qemu-guest-agent
     - NetworkManager-ovs

@@ -52,7 +52,6 @@ EXTENSION_RPMS=(
   python3-policycoreutils
   python3-setools
   python3-setuptools
-  qemu-guest-agent
   unbound-libs
   usbguard
   usbguard-selinux
