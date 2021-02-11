@@ -5,6 +5,7 @@
 
 # Copy pivot files
 cp overlay/etc / -rvf
+cp overlay/var / -rvf
 cp overlay/usr/local/bin/* /usr/local/bin/ -rvf
 cp manifests/* /opt/openshift/openshift/ -rvf
 
