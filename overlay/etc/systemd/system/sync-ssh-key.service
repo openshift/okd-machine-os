@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync ssh key for MCO
+# Removal of this file signals firstboot completion
+ConditionPathExists=!/etc/ignition-machine-config-encapsulated.json
+# Skip if ssh key is already linked
+ConditionPathExists=/home/core/.ssh/authorized_keys.d/ignition
+ConditionPathExists=!/home/core/.ssh/authorized_keys
+[Service]
+Type=oneshot
+ExecStart=/bin/mv /home/core/.ssh/authorized_keys.d/ignition /home/core/.ssh/authorized_keys
+[Install]
+WantedBy=multi-user.target
