@@ -25,6 +25,12 @@ MACHINE_CONFIG_OSCONTENT=$(image_for machine-os-content)
 echo "${MACHINE_CONFIG_OSCONTENT}" > /etc/pivot/image-pullspec
 touch /run/pivot/reboot-needed
 
+# Update bootstrap's kernel args
+echo -e "DELETE mitigations=auto,nosmt" > /etc/pivot/kernel-args
+echo -e "DELETE systemd.unified_cgroup_hierarchy=0" >> /etc/pivot/kernel-args
+echo -e "ADD cgroup_no_v1=all" >> /etc/pivot/kernel-args
+echo -e "ADD psi=1" /etc/pivot/kernel-args
+
 touch /opt/openshift/.pivot-done
 /usr/local/bin/machine-config-daemon pivot
 
