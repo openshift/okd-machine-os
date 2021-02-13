@@ -1,7 +1,7 @@
 #!/bin/sh
 set -exuo pipefail
 
-STREAM="next-devel"
+STREAM="stable"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional repos to use
