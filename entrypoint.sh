@@ -1,14 +1,13 @@
 #!/bin/sh
 set -exuo pipefail
 
-STREAM="next-devel"
+STREAM="stable"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional repos to use
 REPOS=()
 # additional RPMs to install via os-extensions
 EXTENSION_RPMS=(
-  NetworkManager-ovs
   checkpolicy
   dpdk
   gdbm-libs
@@ -134,6 +133,7 @@ mkdir /extensions
 pushd /extensions
   mkdir okd
   yumdownloader ${YUMD_PARAMS} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
+  curl -L -o /extensions/okd/NetworkManager-ovs-1.26.4-1.fc33.x86_64.rpm https://kojipkgs.fedoraproject.org//packages/NetworkManager/1.26.4/1.fc33/x86_64/NetworkManager-ovs-1.26.4-1.fc33.x86_64.rpm
   createrepo_c --no-database .
 popd
 
