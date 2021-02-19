@@ -148,6 +148,8 @@ pushd /tmp/working
   # move etc configuration to /usr/etc so that it would be merged by rpm-ostree
   mv etc usr/
 
+
+
   # add binaries (MCD) from /srv/addons
   mkdir -p usr/bin usr/libexec
   cp -rvf /srv/addons/* .
