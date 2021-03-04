@@ -2,7 +2,7 @@
 set -exuo pipefail
 
 REPOS=()
-STREAM="stable"
+STREAM="next-devel"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional RPMs to install via os-extensions
