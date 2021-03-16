@@ -1,0 +1,45 @@
+rojig:
+  license: MIT
+  name: fcos
+  summary: OKD 4
+
+# We inherit from Fedora CoreOS' base configuration
+include:
+  - fedora-coreos-config/manifests/ignition-and-ostree.yaml
+  - fedora-coreos-config/manifests/file-transfer.yaml
+  - fedora-coreos-config/manifests/networking-tools.yaml
+  # OKD owned packages
+  - okd-packages.yaml
+
+arch-include:
+  x86_64:
+    - fedora-coreos-config/manifests/grub2-removals.yaml
+    - fedora-coreos-config/manifests/bootupd.yaml
+  ppc64le: fedora-coreos-config/manifests/grub2-removals.yaml
+  aarch64:
+    - fedora-coreos-config/manifests/grub2-removals.yaml
+    - fedora-coreos-config/manifests/bootupd.yaml
+
+releasever: "33"
+ref: fedora/${basearch}/coreos/next-devel
+repos:
+  - fedora
+  - fedora-updates
+  - crio
+  - okd-rpms
+
+# We include hours/minutes to avoid version number reuse
+automatic-version-prefix: "48.33.<date:%Y%m%d%H%M>"
+# This ensures we're semver-compatible which OpenShift wants
+automatic-version-suffix: "-"
+mutate-os-release: "4.8"
+
+documentation: false
+
+postprocess:
+  # Disable Zincati
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    mkdir -p /etc/zincati/config.d
+    echo -e '# https://github.com/coreos/fedora-coreos-tracker/issues/163\nupdates.enabled = false' > /etc/zincati/config.d/90-disable-on-non-production-stream.toml
