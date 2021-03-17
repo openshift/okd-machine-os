@@ -122,7 +122,7 @@ CRIO_REPOS=(
 # https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_${VERSION_ID}/
 
 # prepare a list of repos to download packages from
-REPOLIST=""
+REPOLIST="--disablerepo=* --enablerepo=fedora"
 for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
 done
