@@ -1,15 +1,1 @@
-apiVersion: machineconfiguration.openshift.io/v1
-kind: MachineConfig
-metadata:
-  labels:
-    machineconfiguration.openshift.io/role: master
-  name: 99-master-okd-extensions
-spec:
-  config:
-    ignition:
-      version: 3.1.0
-  extensions:
-    - glusterfs
-    - glusterfs-fuse
-    - qemu-guest-agent
-    - NetworkManager-ovs
+../../manifests/0000_80_machine-config-operator_05_1_okd-master-extensions.yaml
