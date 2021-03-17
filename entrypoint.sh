@@ -5,7 +5,9 @@ STREAM="branched"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional repos to use
-REPOS=()
+REPOS=(
+  https://dl.fedoraproject.org/pub/fedora/linux/development/34/Everything/x86_64/os/
+)
 # additional RPMs to install via os-extensions
 EXTENSION_RPMS=(
   NetworkManager-ovs
@@ -120,7 +122,7 @@ CRIO_REPOS=(
 # https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_${VERSION_ID}/
 
 # prepare a list of repos to download packages from
-REPOLIST="--enablerepo=fedora --enablerepo=updates"
+REPOLIST=""
 for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
 done
