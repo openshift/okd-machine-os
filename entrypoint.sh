@@ -9,11 +9,14 @@ REF="fedora/x86_64/coreos/${STREAM}"
 EXTENSION_RPMS=(
   NetworkManager-ovs
   checkpolicy
+  dhcp-client
+  dhcp-common
   dpdk
   gdbm-libs
   glusterfs
   glusterfs-client-xlators
   glusterfs-fuse
+  ipcalc
   kernel-devel
   kernel-headers
   libdrm

@@ -12,7 +12,10 @@ spec:
     ignition:
       version: 3.1.0
   extensions:
+    - dhcp-client
+    - dhcp-common
     - glusterfs
     - glusterfs-fuse
+    - ipcalc
     - qemu-guest-agent
     - NetworkManager-ovs

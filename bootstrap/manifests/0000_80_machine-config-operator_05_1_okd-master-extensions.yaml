@@ -1,6 +1,9 @@
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
+  annotations:
+    include.release.openshift.io/self-managed-high-availability: "true"
+    include.release.openshift.io/single-node-developer: "true"
   labels:
     machineconfiguration.openshift.io/role: master
   name: 99-master-okd-extensions
@@ -9,7 +12,10 @@ spec:
     ignition:
       version: 3.1.0
   extensions:
+    - dhcp-client
+    - dhcp-common
     - glusterfs
     - glusterfs-fuse
+    - ipcalc
     - qemu-guest-agent
     - NetworkManager-ovs
