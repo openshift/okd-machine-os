@@ -124,6 +124,15 @@ mkdir /extensions
 pushd /extensions
   mkdir okd
   yumdownloader ${YUMD_PARAMS} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
+  # Strip problematic xattrs from extension RPMs
+  for i in $(find /extensions/okd -iname *.rpm); do
+    fattr=$(getfattr -m 'user.*' $i)
+    if [ -n "$fattr" ]; then
+      attr=$(echo "$fattr" | grep -Ee '^user')
+      setfattr -x "${attr}" $i
+    fi
+  done
+
   createrepo_c --no-database .
 popd
 
@@ -137,6 +146,14 @@ yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms --enablerepo=updates-testing-mo
 # inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
 pushd /tmp/working
+# Strip problematic xattrs from extension RPMs
+  for i in $(find /tmp/rpms -iname *.rpm); do
+    fattr=$(getfattr -m 'user.*' $i)
+    if [ -n "$fattr" ]; then
+      attr=$(echo "$fattr" | grep -Ee '^user')
+      setfattr -x "${attr}" $i
+    fi
+  done
   for i in $(find /tmp/rpms/ -iname *.rpm); do
     echo "Extracting $i ..."
     rpm2cpio $i | cpio -div
