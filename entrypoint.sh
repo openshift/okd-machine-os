@@ -24,6 +24,7 @@ EXTENSION_RPMS=(
   libpciaccess
   libqb
   libtool-ltdl
+  liburing
   libxcrypt-compat
   libxslt
   open-vm-tools
