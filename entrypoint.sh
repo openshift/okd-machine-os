@@ -75,6 +75,9 @@ CRIO_RPMS=(
   cri-tools
 )
 CRIO_VERSION="1.20"
+CRIO_REPOS=(
+  https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/${CRIO_VERSION}/Fedora_33/
+)
 
 # fetch binaries and configure working env, prow doesn't allow init containers or a second container
 dir=/tmp/ostree
@@ -116,6 +119,9 @@ REPOLIST="--enablerepo=fedora --enablerepo=updates"
 for i in "${!REPOS[@]}"; do
   REPOLIST="${REPOLIST} --repofrompath=repo${i},${REPOS[$i]}"
 done
+for i in "${!CRIO_REPOS[@]}"; do
+  REPOLIST="${REPOLIST} --repofrompath=repo${i},${CRIO_REPOS[$i]}"
+done
 
 # yumdownloader params
 YUMD_PARAMS="--archlist=x86_64 --archlist=noarch --releasever=${VERSION_ID} ${REPOLIST}"
@@ -132,8 +138,10 @@ popd
 yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms ${BOOTSTRAP_RPMS[*]}
 
 # download CRI-O RPMs
-dnf module enable -y --enablerepo=updates-testing-modular cri-o:${CRIO_VERSION}
-yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms --enablerepo=updates-testing-modular cri-o cri-tools
+# There's no F34 CRIO build yet
+VERSION_ID=34
+YUMD_PARAMS="--archlist=x86_64 --archlist=noarch --releasever=${VERSION_ID} ${REPOLIST}"
+yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms ${CRIO_RPMS[*]}
 
 # inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
