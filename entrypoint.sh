@@ -125,7 +125,7 @@ pushd /extensions
   mkdir okd
   yumdownloader ${YUMD_PARAMS} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
   # Strip problematic xattrs from extension RPMs
-  for i in $(find /extensions/okd -iname *.rpm); do
+  for i in $(find /extensions/okd -iname *.d*rpm); do
     fattr=$(getfattr -m 'user.*' $i)
     if [ -n "$fattr" ]; then
       attr=$(echo "$fattr" | grep -Ee '^user')
@@ -146,8 +146,8 @@ yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms --enablerepo=updates-testing-mo
 # inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
 pushd /tmp/working
-# Strip problematic xattrs from extension RPMs
-  for i in $(find /tmp/rpms -iname *.rpm); do
+  # Strip problematic xattrs from extension RPMs
+  for i in $(find /tmp/rpms -iname *.d*rpm); do
     fattr=$(getfattr -m 'user.*' $i)
     if [ -n "$fattr" ]; then
       attr=$(echo "$fattr" | grep -Ee '^user')
