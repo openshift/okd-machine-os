@@ -1,0 +1,48 @@
+rojig:
+  license: MIT
+  name: fcos
+  summary: OKD 4
+
+# We inherit from Fedora CoreOS' base configuration
+include:
+  - fedora-coreos-config/manifests/fedora-coreos-base.yaml
+  # OKD owned packages
+  - okd-packages.yaml
+
+releasever: "34"
+ref: fedora/${basearch}/coreos/okd
+repos:
+  - fedora-next
+  - fedora-next-updates
+  - crio
+  - cri-tools
+  - okd-rpms
+
+packages:
+  - fedora-release-coreos
+  - fedora-repos-ostree
+  # fedora-repos-modular was converted into its own subpackage in f33
+  # Continue to include it in case users want to use it.
+  - fedora-repos-modular
+  # the archive repo for more reliable package layering
+  # https://github.com/coreos/fedora-coreos-tracker/issues/400
+  - fedora-repos-archive
+  # User metrics
+  - fedora-coreos-pinger
+
+# We include hours/minutes to avoid version number reuse
+automatic-version-prefix: "48.34.<date:%Y%m%d%H%M>"
+# This ensures we're semver-compatible which OpenShift wants
+automatic-version-suffix: "-"
+mutate-os-release: "4.8"
+
+documentation: false
+
+postprocess:
+  # Disable repos by default so that upgraded packages from fedora repos would not interfere with OKD upgrades
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    for x in /etc/yum.repos.d/*.repo; do
+      sed -i -e 's,enabled=[01],enabled=0,' ${x}
+    done

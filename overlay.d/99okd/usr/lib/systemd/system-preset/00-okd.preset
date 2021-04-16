@@ -1,0 +1,4 @@
+# Fetch GCP hostnames via afterburn
+enable gcp-hostnames.service
+# Skip cgroups warning
+disable coreos-check-cgroups.service
