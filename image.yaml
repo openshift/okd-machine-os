@@ -1,0 +1,4 @@
+# This file can optionally contain configuration specific to the stream,
+# similarly to manifest.yaml. Unlike image-base.yaml, which is shared by all
+# streams.
+include: fedora-coreos-config/image-base.yaml
