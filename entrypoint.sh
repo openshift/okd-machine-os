@@ -74,7 +74,7 @@ CRIO_RPMS=(
   cri-o
   cri-tools
 )
-CRIO_VERSION="1.20"
+CRIO_VERSION="1.21"
 CRIO_REPOS=(
   https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/${CRIO_VERSION}/Fedora_33/
 )
