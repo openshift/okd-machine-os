@@ -6,9 +6,12 @@ REF="fedora/x86_64/coreos/${STREAM}"
 
 # additional repos to use
 REPOS=()
+RPMS_FROM_FEDORA_UPDATES_ARCHIVE=(
+  NetworkManager-ovs-1:1.26.6-1.fc33.x86_64
+)
+
 # additional RPMs to install via os-extensions
 EXTENSION_RPMS=(
-  NetworkManager-ovs
   checkpolicy
   dpdk
   gdbm-libs
@@ -133,6 +136,8 @@ YUMD_PARAMS="--archlist=x86_64 --archlist=noarch --releasever=${VERSION_ID} ${RE
 mkdir /extensions
 pushd /extensions
   mkdir okd
+  # Some RPMS need to be fetched from updates-archive
+  yumdownloader ${YUMD_PARAMS} --enablerepo=updates-archive --destdir=/extensions/okd ${RPMS_FROM_FEDORA_UPDATES_ARCHIVE[*]}
   yumdownloader ${YUMD_PARAMS} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
   createrepo_c --no-database .
 popd
