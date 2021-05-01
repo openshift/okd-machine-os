@@ -1,9 +1,9 @@
 [crio]
 name=crio
 type=rpm
-baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.21/Fedora_33/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.21/Fedora_34/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.21/Fedora_33/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.21/Fedora_34/repodata/repomd.xml.key
 enabled=1
 [cri-tools]
 name=cri-tools
