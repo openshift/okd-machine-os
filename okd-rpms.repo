@@ -1,0 +1,9 @@
+[okd-rpms]
+name=OKD RPMs
+failovermethod=priority
+baseurl=/srv/okd-repo
+enabled=1
+repo_gpgcheck=0
+type=rpm
+gpgcheck=0
+skip_if_unavailable=False
