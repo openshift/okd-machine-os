@@ -9,4 +9,5 @@ RUN export OPENSHIFT_BUILD_REFERENCE=$(git rev-parse FETCH_HEAD) && \
     cirrus-run --github vrutkovs/okd-os --branch main --show-build-log always | tee /tmp/build.log && \
     # replace resulting image in Dockerfile
     IMAGE=$(grep "Committing container" -A1 /tmp/build.log | tail -n1 | tr ' ' '\n' | head -n1) && \
-    sed "s;INITIAL_IMAGE;${IMAGE};g" Dockerfile.template > /tmp/Dockerfile
+    sed "s;INITIAL_IMAGE;${IMAGE};g" Dockerfile.template > /tmp/Dockerfile && \
+    mkdir ./extensions
