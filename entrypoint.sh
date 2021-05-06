@@ -6,7 +6,7 @@ STREAM="stable"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 RPMS_FROM_FEDORA_UPDATES_ARCHIVE=(
-  NetworkManager-ovs-1:1.26.6-1.fc33.x86_64
+  NetworkManager-ovs-1:1.26.8-1.fc33.x86_64
 )
 
 # additional RPMs to install via os-extensions
