@@ -12,8 +12,9 @@ include:
 releasever: "34"
 ref: fedora/${basearch}/coreos/okd
 repos:
-  - fedora-next
-  - fedora-next-updates
+  - fedora
+  - fedora-updates
+  - fedora-coreos-pool
   - crio
   - cri-tools
   - okd-rpms
