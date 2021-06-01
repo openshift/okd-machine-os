@@ -6,7 +6,7 @@ STREAM="stable"
 REF="fedora/x86_64/coreos/${STREAM}"
 
 RPMS_FROM_FEDORA_UPDATES_ARCHIVE=(
-  NetworkManager-ovs-1:1.26.8-1.fc33.x86_64
+  NetworkManager-ovs-1:1.30.4-1.fc34.x86_64
 )
 
 # additional RPMs to install via os-extensions
@@ -27,6 +27,7 @@ EXTENSION_RPMS=(
   libpciaccess
   libqb
   libtool-ltdl
+  liburing
   libxcrypt-compat
   libxslt
   open-vm-tools
@@ -129,15 +130,6 @@ pushd /extensions
   # Some RPMS need to be fetched from updates-archive
   yumdownloader ${YUMD_PARAMS} --enablerepo=updates-archive --destdir=/extensions/okd ${RPMS_FROM_FEDORA_UPDATES_ARCHIVE[*]}
   yumdownloader ${YUMD_PARAMS} --destdir=/extensions/okd ${EXTENSION_RPMS[*]}
-  # Strip problematic xattrs from extension RPMs
-  for i in $(find /extensions/okd -iname *.rpm); do
-    fattr=$(getfattr -m 'user.*' $i)
-    if [ -n "$fattr" ]; then
-      attr=$(echo "$fattr" | grep -Ee '^user')
-      setfattr -x "${attr}" $i
-    fi
-  done
-
   createrepo_c --no-database .
 popd
 
@@ -151,14 +143,6 @@ yumdownloader ${YUMD_PARAMS} --destdir=/tmp/rpms --enablerepo=updates-testing-mo
 # inject MCD binary and cri-o, hyperkube, and bootstrap RPMs in the ostree commit
 mkdir /tmp/working
 pushd /tmp/working
-# Strip problematic xattrs from extension RPMs
-  for i in $(find /tmp/rpms -iname *.rpm); do
-    fattr=$(getfattr -m 'user.*' $i)
-    if [ -n "$fattr" ]; then
-      attr=$(echo "$fattr" | grep -Ee '^user')
-      setfattr -x "${attr}" $i
-    fi
-  done
   for i in $(find /tmp/rpms/ -iname *.rpm); do
     echo "Extracting $i ..."
     rpm2cpio $i | cpio -div
