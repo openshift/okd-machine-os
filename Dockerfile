@@ -10,7 +10,7 @@ COPY ./overlay /srv/overlay
 RUN /usr/bin/entrypoint.sh
 
 FROM scratch
-COPY --from=build /srv/ /srv/
+COPY --from=build /srv/repo /srv/repo
 COPY --from=build /extensions/ /extensions/
 COPY manifests/ /manifests/
 COPY bootstrap/ /bootstrap/
