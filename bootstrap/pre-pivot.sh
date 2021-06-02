@@ -5,7 +5,6 @@
 
 # Copy pivot files
 cp overlay/etc / -rvf
-cp overlay/usr/local/bin/* /usr/local/bin/ -rvf
 cp manifests/* /opt/openshift/openshift/ -rvf
 
 # Copy machine-config-daemon binary from payload
