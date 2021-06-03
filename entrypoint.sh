@@ -19,7 +19,7 @@ pushd /srv/okd-repo
 popd
 
 # build ostree commit
-cosa fetch --update-lockfile
+cosa fetch
 cosa build ostree
 
 echo "Building container"
