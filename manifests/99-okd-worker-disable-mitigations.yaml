@@ -12,7 +12,7 @@ spec:
       files:
         - contents:
             source: >-
-              data:text/plain;charset=utf-8;base64,REVMRVRFIG1pdGlnYXRpb25zPWF1dG8sbm9zbXQ=
+              data:text/plain;charset=utf-8;base64,REVMRVRFIG1pdGlnYXRpb25zPWF1dG8sbm9zbXQKQUREIHN5c3RlbWQudW5pZmllZF9jZ3JvdXBfaGllcmFyY2h5PTAK
             verification: {}
           group: {}
           mode: 384
