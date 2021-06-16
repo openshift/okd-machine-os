@@ -1,8 +1,8 @@
 FROM INITIAL_IMAGE as oscontainer
 FROM scratch
 COPY --from=oscontainer /srv/ /srv/
+COPY --from=oscontainer /extensions/ /extensions/
 COPY manifests/ /manifests/
 COPY bootstrap/ /bootstrap/
-COPY extensions/ /extensions/
 LABEL io.openshift.release.operator=true
 ENTRYPOINT ["/noentry"]
