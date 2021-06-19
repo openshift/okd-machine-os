@@ -22,5 +22,11 @@ popd
 cosa fetch
 cosa build ostree
 
+# Create repo for OS Extensions
+mkdir -p /overlay/extensions
+pushd /overlay/extensions
+  createrepo_c .
+popd
+
 echo "Building container"
-cosa upload-oscontainer --name "quay.io/vrutkovs/okd-os"
+cosa upload-oscontainer --name "quay.io/vrutkovs/okd-os" --add-directory /overlay
