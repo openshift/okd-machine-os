@@ -36,3 +36,9 @@ packages:
         evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
     NetworkManager-team:
         evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    # Fast-track SELinux fix for systemd-hostnamed
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1953060
+    selinux-policy:
+        evr: 34.11-1.fc34
+    selinux-policy-targeted:
+        evr: 34.11-1.fc34
