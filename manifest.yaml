@@ -15,6 +15,7 @@ repos:
   - fedora
   - fedora-updates
   - fedora-coreos-pool
+  - copr:copr.fedorainfracloud.org:networkmanager:NetworkManager-1.26
   - crio
   - cri-tools
   - okd-rpms

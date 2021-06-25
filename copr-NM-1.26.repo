@@ -1,0 +1,10 @@
+[copr:copr.fedorainfracloud.org:networkmanager:NetworkManager-1.26]
+name=Copr repo for NetworkManager-1.26 owned by networkmanager
+baseurl=https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-1.26/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/networkmanager/NetworkManager-1.26/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
