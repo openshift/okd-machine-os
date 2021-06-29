@@ -1,4 +1,6 @@
 # Fetch GCP hostnames via afterburn
 enable gcp-hostnames.service
+# Remove "search ." from /run/systemd/resolve/resolv.conf if it exists
+enable fix-resolv-conf-search.service
 # Skip cgroups warning
 disable coreos-check-cgroups.service
