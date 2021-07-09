@@ -16,32 +16,32 @@ packages:
       reason: https://github.com/coreos/fedora-coreos-config/pull/1088
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-9d4c3ddc8a
   NetworkManager:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-libnm:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-ovs:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-tui:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-cloud-setup:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-team:
-    evr: 1:1.32.1-28600.copr.b5de7b2e48.fc34
+    evr: 1:1.32.3-28651.copr.d90baeecd8.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
