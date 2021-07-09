@@ -14,6 +14,7 @@ ref: fedora/${basearch}/coreos/okd
 repos:
   - fedora
   - fedora-updates
+  - updates-archive
   - fedora-coreos-pool
   - copr:copr.fedorainfracloud.org:networkmanager:NetworkManager-1.32
   - crio
