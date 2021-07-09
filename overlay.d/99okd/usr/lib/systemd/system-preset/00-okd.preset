@@ -4,3 +4,5 @@ enable gcp-hostnames.service
 enable fix-resolv-conf-search.service
 # Skip cgroups warning
 disable coreos-check-cgroups.service
+# Enable ovirt service
+enable qemu-guest-agent.service
