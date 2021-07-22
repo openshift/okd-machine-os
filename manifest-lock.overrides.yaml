@@ -1,20 +1,34 @@
 packages:
-  dracut:
-    evr: 053-5.fc34
+  ostree:
+    evr: 2021.3-1.fc34
     metadata:
-      reason: https://github.com/coreos/fedora-coreos-tracker/issues/842
-      type: pin
-  dracut-network:
-    evr: 053-5.fc34
-    metadata:
-      reason: https://github.com/coreos/fedora-coreos-tracker/issues/842
-      type: pin
-  fedora-coreos-pinger:
-    evr: 0.0.4-11.fc34
-    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-f5ae883a27
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/746
       type: fast-track
-      reason: https://github.com/coreos/fedora-coreos-config/pull/1088
-      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-9d4c3ddc8a
+  ostree-libs:
+    evr: 2021.3-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-f5ae883a27
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/746
+      type: fast-track
+  systemd:
+    evr: 248.5-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-2a6ba64260
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/904
+      type: fast-track
+  systemd-container:
+    evr: 248.5-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-2a6ba64260
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/904
+      type: fast-track
+  systemd-libs:
+    evr: 248.5-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-2a6ba64260
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/904
+      type: fast-track
   NetworkManager:
     evr: 1:1.32.5-28700.copr.d2075ac770.fc34
     metadata:
