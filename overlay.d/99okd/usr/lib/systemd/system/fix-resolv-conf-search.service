@@ -9,6 +9,7 @@ BindsTo=systemd-resolved.service
 Type=oneshot
 ExecStartPre=/usr/bin/sleep 5
 ExecStart=/usr/bin/sed -i -e "s/^search .$//" /run/systemd/resolve/resolv.conf
+ExecStart=/usr/bin/cp /run/systemd/resolve/resolv.conf /var/run/NetworkManager/resolv.conf
 
 [Install]
 WantedBy=multi-user.target
