@@ -1,17 +1,25 @@
 packages:
-  dracut:
-    evr: 053-5.fc34
+  fedora-coreos-pinger:
+    evr: 0.0.4-11.fc34
     metadata:
-      reason: https://github.com/coreos/fedora-coreos-tracker/issues/842
-      type: pin
-  dracut-network:
-    evr: 053-5.fc34
-    metadata:
-      reason: https://github.com/coreos/fedora-coreos-tracker/issues/842
-      type: pin
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-9d4c3ddc8a
+      reason: https://github.com/coreos/fedora-coreos-config/pull/1088
+      type: fast-track
   ignition:
-    evr: 2.11.0-1.fc34
+    evr: 2.11.0-2.fc34
     metadata:
+      type: fast-track
+  coreos-installer:
+    evr: 0.9.1-2.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-0efb7aefc9
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/889
+      type: fast-track
+  coreos-installer-bootinfra:
+    evr: 0.9.1-2.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-0efb7aefc9
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/889
       type: fast-track
   kernel:
     evr: 5.12.19-300.fc34
@@ -65,32 +73,32 @@ packages:
       reason: https://github.com/coreos/fedora-coreos-tracker/issues/904
       type: fast-track
   NetworkManager:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-libnm:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-ovs:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-tui:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-cloud-setup:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
   NetworkManager-team:
-    evr: 1:1.32.5-28700.copr.d2075ac770.fc34
+    evr: 1:1.32.7-28720.copr.788c13c94f.fc34
     metadata:
       reason: https://github.com/openshift/okd/issues/648
       type: pin
