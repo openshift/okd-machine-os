@@ -1,4 +1,20 @@
 packages:
+  coreos-installer:
+    evr: 0.10.0-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-23c125b007
+      type: fast-track
+  coreos-installer-bootinfra:
+    evr: 0.10.0-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-23c125b007
+      type: fast-track
+  ignition:
+    evr: 2.12.0-1.fc34
+    metadata:
+      bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-429119296e
+      reason: https://github.com/coreos/ignition/issues/1255
+      type: fast-track
   NetworkManager:
     evr: 1:1.32.7-28730.copr.0e7d260852.fc34
     metadata:
