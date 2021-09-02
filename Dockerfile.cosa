@@ -1,5 +1,5 @@
 FROM quay.io/openshift/origin-machine-config-operator:4.9 as mcd
-FROM quay.io/openshift/origin-artifacts:4.9 as artifacts
+FROM registry.ci.openshift.org/origin/4.9:artifacts as artifacts
 
 FROM quay.io/coreos-assembler/coreos-assembler:latest AS build
 USER 1000
