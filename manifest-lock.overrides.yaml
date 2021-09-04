@@ -15,36 +15,6 @@ packages:
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-429119296e
       reason: https://github.com/coreos/ignition/issues/1255
       type: fast-track
-  NetworkManager:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
-  NetworkManager-libnm:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
-  NetworkManager-ovs:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
-  NetworkManager-tui:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
-  NetworkManager-cloud-setup:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
-  NetworkManager-team:
-    evr: 1:1.32.11-28754.copr.dd8bc31fdb.fc34
-    metadata:
-      reason: https://github.com/openshift/okd/issues/648
-      type: pin
   selinux-policy:
     evr: 34.8-1.fc34
     metadata:
