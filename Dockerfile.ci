@@ -1,6 +1,7 @@
 FROM quay.io/vrutkovs/cirrus-run
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
+RUN cat /run/.containerenv && exit 1
 # Build Dockerfile.cosa in Cirrus CI
 RUN export OPENSHIFT_BUILD_REFERENCE=$(git rev-parse FETCH_HEAD) && \
     export FETCH_HEAD_CONTENT="$(cat ./.git/FETCH_HEAD)" && \
