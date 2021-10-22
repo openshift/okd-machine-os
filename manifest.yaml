@@ -34,10 +34,10 @@ packages:
   - fedora-coreos-pinger
 
 # We include hours/minutes to avoid version number reuse
-automatic-version-prefix: "49.34.<date:%Y%m%d%H%M>"
+automatic-version-prefix: "410.34.<date:%Y%m%d%H%M>"
 # This ensures we're semver-compatible which OpenShift wants
 automatic-version-suffix: "-"
-mutate-os-release: "4.9"
+mutate-os-release: "4.10"
 
 documentation: false
 
