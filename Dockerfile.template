@@ -5,6 +5,6 @@ COPY --from=oscontainer /extensions/ /extensions/
 COPY manifests/ /manifests/
 COPY bootstrap/ /bootstrap/
 LABEL io.openshift.release.operator=true \
-      io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
-      io.openshift.build.versions="machine-os=OSTREE_VERSION"
+      io.openshift.build.version-display-names="machine-os=Fedora CoreOS,cri-o=CRI-O,kubelet=Kubelet" \
+      io.openshift.build.versions="machine-os=OSTREE_VERSION,cri-o=CRIO_RPM,kubelet=HYPERKUBE_RPM"
 ENTRYPOINT ["/noentry"]
