@@ -1,6 +1,8 @@
 [submodule "fedora-coreos-config"]
 	path = fedora-coreos-config
 	url = https://github.com/coreos/fedora-coreos-config.git
+	branch = "testing-devel"
 [submodule "openshift-os"]
 	path = openshift-os
 	url = https://github.com/openshift/os
+	branch = "master"

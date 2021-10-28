@@ -14,3 +14,18 @@ packages:
     metadata:
       reason: https://bugzilla.redhat.com/show_bug.cgi?id=1980693
       type: pin
+  kernel:
+    evr: 5.13.14-200.fc34
+    metadata:
+      reason: crashes on m6i.xlarge
+      type: pin
+  kernel-core:
+    evr: 5.13.14-200.fc34
+    metadata:
+      reason: crashes on m6i.xlarge
+      type: pin
+  kernel-modules:
+    evr: 5.13.14-200.fc34
+    metadata:
+      reason: crashes on m6i.xlarge
+      type: pin
