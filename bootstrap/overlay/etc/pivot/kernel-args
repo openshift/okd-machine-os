@@ -1,2 +1,2 @@
-ADD systemd.unified_cgroup_hierarchy=0
+ADD systemd.unified_cgroup_hierarchy=1
 DELETE mitigations=auto,nosmt
