@@ -1,2 +1,3 @@
 ADD systemd.unified_cgroup_hierarchy=1
+ADD intel_pstate=disable
 DELETE mitigations=auto,nosmt
