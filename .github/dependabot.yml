@@ -1,7 +1,0 @@
-version: 2
-updates:
-  - package-ecosystem: "gitsubmodules"
-    directory: "/"
-    target-branch: "release-4.7"
-    schedule:
-      interval: "daily"
