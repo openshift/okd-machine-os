@@ -5,6 +5,7 @@ metadata:
     include.release.openshift.io/ibm-cloud-managed: "true"
     include.release.openshift.io/self-managed-high-availability: "true"
     include.release.openshift.io/single-node-developer: "true"
+    release.openshift.io/create-only: "true"
   labels:
     machineconfiguration.openshift.io/role: worker
   name: 99-okd-worker-disable-mitigations
@@ -12,15 +13,5 @@ spec:
   config:
     ignition:
       version: 3.2.0
-    storage:
-      files:
-        - contents:
-            source: >-
-              data:text/plain;charset=utf-8;base64,REVMRVRFIG1pdGlnYXRpb25zPWF1dG8sbm9zbXQK
-            verification: {}
-          group: {}
-          mode: 384
-          overwrite: true
-          path: /etc/pivot/kernel-args
-          user:
-            name: root
+  kernelArguments:
+    - mitigations=off
