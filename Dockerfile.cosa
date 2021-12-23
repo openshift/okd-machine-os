@@ -1,4 +1,5 @@
 FROM quay.io/openshift/origin-machine-config-operator:4.10 as mcd
+FROM quay.io/vrutkovs/coreos-installer:pr-712 as coreos_installer
 FROM registry.ci.openshift.org/origin/4.10:artifacts as artifacts
 
 FROM quay.io/coreos-assembler/coreos-assembler:latest AS build
@@ -6,6 +7,7 @@ USER 1000
 WORKDIR /src
 COPY . .
 COPY --from=mcd /usr/bin/machine-config-daemon /overrides/rootfs/usr/libexec/machine-config-daemon
+COPY --from=coreos_installer /usr/sbin/coreos-installer /overrides/rootfs/usr/bin/coreos-installer
 COPY --from=artifacts /srv/repo/*.rpm /srv/okd-repo/
 USER 0
 ENTRYPOINT ["/src/entrypoint.sh"]
