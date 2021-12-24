@@ -4,7 +4,7 @@ packages:
 - qemu-guest-agent
 - glusterfs
 - glusterfs-fuse
-- crio
+- cri-o
 - cri-tools
 - openshift-hyperkube
 - openshift-clients
