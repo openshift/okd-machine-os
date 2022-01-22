@@ -9,14 +9,11 @@ include:
   # OKD owned packages
   - okd-packages.yaml
 
-releasever: "34"
+releasever: "35"
 ref: fedora/${basearch}/coreos/okd
 repos:
   - fedora
   - fedora-updates
-  - updates-archive
-  - fedora-coreos-pool
-  - copr:copr.fedorainfracloud.org:networkmanager:NetworkManager-1.32
   - crio
   - cri-tools
   - okd-rpms
@@ -34,7 +31,7 @@ packages:
   - fedora-coreos-pinger
 
 # We include hours/minutes to avoid version number reuse
-automatic-version-prefix: "410.34.<date:%Y%m%d%H%M>"
+automatic-version-prefix: "410.35.<date:%Y%m%d%H%M>"
 # This ensures we're semver-compatible which OpenShift wants
 automatic-version-suffix: "-"
 mutate-os-release: "4.10"
