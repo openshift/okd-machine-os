@@ -32,3 +32,13 @@ packages:
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-854826abc1
       reason: https://github.com/coreos/fedora-coreos-tracker/issues/943
       type: fast-track
+  polkit:
+    evr: 0.117-3.fc34.2
+    metadata:
+      reason: https://bugzilla.redhat.com/show_bug.cgi?id=2025869
+      type: pin
+  polkit-libs:
+    evr: 0.117-3.fc34.2
+    metadata:
+      reason: https://bugzilla.redhat.com/show_bug.cgi?id=2025869
+      type: pin
