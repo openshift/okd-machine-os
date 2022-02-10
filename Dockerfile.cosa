@@ -1,4 +1,4 @@
-FROM quay.io/openshift/origin-machine-config-operator:4.10 as mcd
+FROM registry.ci.openshift.org/origin/4.10:machine-config-operator as mcd
 FROM registry.ci.openshift.org/origin/4.10:artifacts as artifacts
 
 FROM quay.io/coreos-assembler/coreos-assembler:latest AS build
