@@ -5,7 +5,7 @@ FROM quay.io/coreos-assembler/coreos-assembler:latest AS build
 USER 1000
 WORKDIR /src
 COPY . .
-COPY --from=mcd /usr/bin/machine-config-daemon /overrides/rootfs/usr/libexec/machine-config-daemon
+COPY --from=mcd /usr/bin/machine-config-daemon /src/overlay.d/99okd/usr/libexec/machine-config-daemon
 COPY --from=artifacts /srv/repo/*.rpm /srv/okd-repo/
 USER 0
 ENTRYPOINT ["/src/entrypoint.sh"]
