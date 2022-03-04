@@ -8,11 +8,6 @@ echo ${QUAY_PASSWORD} | skopeo login --authfile=${REGISTRY_AUTH_FILE} quay.io --
 
 cosa init /src --force
 
-# Copy overrides
-mkdir -p ./overrides/rootfs
-cp -rvf /overrides/* ./overrides
-cp -rvf /src/overlay.d ./overrides/rootfs/
-
 # Create repo for OKD RPMs
 pushd /srv/okd-repo
   createrepo_c .
