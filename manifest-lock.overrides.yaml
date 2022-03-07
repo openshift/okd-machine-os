@@ -1,1 +1,7 @@
-packages: {}
+packages:
+  container-selinux:
+    evr: 2:2.173.1-1.fc35
+  selinux-policy:
+    evr: 35.13-1.fc35
+  selinux-policy-targeted:
+    evr: 35.13-1.fc35
