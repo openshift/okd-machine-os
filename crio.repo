@@ -8,7 +8,7 @@ enabled=1
 [cri-tools]
 name=cri-tools
 type=rpm-md
-baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_34/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_35/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_34/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_35/repodata/repomd.xml.key
 enabled=1
