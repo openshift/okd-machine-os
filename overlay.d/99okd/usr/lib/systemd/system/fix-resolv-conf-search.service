@@ -3,6 +3,7 @@ Description=Remove search . from /etc/resolv.conf
 DefaultDependencies=no
 Requires=systemd-resolved.service
 After=systemd-resolved.service
+After=NetworkManager.service
 BindsTo=systemd-resolved.service
 
 [Service]
