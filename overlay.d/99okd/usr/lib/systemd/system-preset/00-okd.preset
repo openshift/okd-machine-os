@@ -2,7 +2,9 @@
 enable gcp-hostnames.service
 # Remove "search ." from /run/systemd/resolve/resolv.conf if it exists
 enable fix-resolv-conf-search.service
-# Skip cgroups warning
+# Skip FCOS services
 disable coreos-check-cgroups.service
+disable coreos-check-ssh-keys.service
+disable afterburn-sshkeys.target
 # Enable ovirt service
 enable qemu-guest-agent.service
