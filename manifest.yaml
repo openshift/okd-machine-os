@@ -29,6 +29,7 @@ packages:
   - fedora-repos-archive
   # User metrics
   - fedora-coreos-pinger
+  - updates-archive  
 
 # We include hours/minutes to avoid version number reuse
 automatic-version-prefix: "410.35.<date:%Y%m%d%H%M>"
