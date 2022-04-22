@@ -17,6 +17,7 @@ repos:
   - crio
   - cri-tools
   - okd-rpms
+  - updates-archive  
 
 packages:
   - fedora-release-coreos
