@@ -2,15 +2,13 @@
 Description=Remove search . from /etc/resolv.conf
 DefaultDependencies=no
 Requires=systemd-resolved.service
-After=systemd-resolved.service
-After=NetworkManager.service
+After=systemd-resolved.service network-online.target
+Before=crio.service
 BindsTo=systemd-resolved.service
 
 [Service]
 Type=oneshot
-ExecStartPre=/usr/bin/sleep 5
 ExecStart=/usr/bin/sed -i -e "s/^search .$//" /run/systemd/resolve/resolv.conf
-ExecStart=/usr/bin/cp /run/systemd/resolve/resolv.conf /var/run/NetworkManager/resolv.conf
 
 [Install]
 WantedBy=multi-user.target
