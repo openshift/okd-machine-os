@@ -1,16 +1,1 @@
-packages: 
-  kernel:
-    evr: 5.16.18-200.fc35
-    metadata:
-      reason: crashes vmware
-      type: pin
-  kernel-core:
-    evr: 5.16.18-200.fc35
-    metadata:
-      reason: crashes on vmware
-      type: pin
-  kernel-modules:
-    evr: 5.16.18-200.fc35
-    metadata:
-      reason: crashes on vmware
-      type: pin
+packages: {}
