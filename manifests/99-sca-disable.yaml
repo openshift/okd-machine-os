@@ -4,5 +4,5 @@ metadata:
   name: support
   namespace: openshift-config
 stringData:
-  scaPullDisabled: true
+  scaPullDisabled: "true"
 type: Opaque
