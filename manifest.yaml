@@ -9,13 +9,13 @@ include:
   # OKD owned packages
   - okd-packages.yaml
 
-releasever: 35
+releasever: 36
 ref: fedora/${basearch}/coreos/okd
 repos:
   - fedora
   - fedora-updates
-  - crio
-  - cri-tools
+  - fedora-modular
+  - fedora-updates-modular
   - okd-rpms
   - updates-archive
 
@@ -31,8 +31,15 @@ packages:
   # User metrics
   - fedora-coreos-pinger
 
+modules:
+  enable:
+    - cri-o:1.24
+  install:
+    # cri-o and cri-tools
+    - cri-o:1.24/default
+
 # We include hours/minutes to avoid version number reuse
-automatic-version-prefix: "411.35.<date:%Y%m%d%H%M>"
+automatic-version-prefix: "411.36.<date:%Y%m%d%H%M>"
 # This ensures we're semver-compatible which OpenShift wants
 automatic-version-suffix: "-"
 mutate-os-release: "4.11"
