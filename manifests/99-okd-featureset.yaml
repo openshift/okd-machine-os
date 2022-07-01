@@ -10,10 +10,4 @@ spec:
   customNoUpgrade:
     enabled:
     - ExternalCloudProvider
-    - CSIMigrationAWS
-    - CSIMigrationOpenStack
-    - CSIMigrationAzureDisk
-    - CSIDriverAzureDisk
-    - CSIDriverVSphere
-    - CSIMigrationvSphere
   featureSet: CustomNoUpgrade
