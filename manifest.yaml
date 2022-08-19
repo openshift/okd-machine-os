@@ -66,5 +66,6 @@ ostree-layers:
   - overlay/09misc
   - overlay/14NetworkManager-plugins
   - overlay/15fcos
+  - overlay/16disable-zincati
   - overlay/20platform-chrony
   - overlay/99okd
