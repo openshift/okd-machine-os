@@ -4,3 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    target-branch: "release-4.11"
+    schedule:
+      interval: "weekly"
