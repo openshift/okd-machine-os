@@ -1,8 +1,0 @@
-packages:
-- NetworkManager-ovs
-- open-vm-tools
-- qemu-guest-agent
-- glusterfs
-- glusterfs-fuse
-- openshift-hyperkube
-- openshift-clients
