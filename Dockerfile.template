@@ -1,10 +1,30 @@
-FROM INITIAL_IMAGE as oscontainer
-FROM scratch
-COPY --from=oscontainer /srv/ /srv/
-COPY --from=oscontainer /extensions/ /extensions/
-COPY manifests/ /manifests/
-COPY bootstrap/ /bootstrap/
+FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
+FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
+
+FROM registry.access.redhat.com/ubi8/ubi-minimal as rpms
+WORKDIR /rpms
+COPY crio.repo /etc/yum.repos.d
+RUN microdnf download crio cri-tools --archlist=x86_64
+COPY --from=artifacts /srv/repo/*.rpm /rpms/
+COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
+
+FROM quay.io/coreos-assembler/fcos:testing-devel
+COPY . /go/src/github.com/openshift/okd-machine-os
+WORKDIR /go/src/github.com/openshift/okd-machine-os
+COPY --from=rpms /rpms/ /tmp/rpms
+COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
+COPY overlay.d/ /tmp/overlay
+RUN cp -irvf /tmp/overlay/*/* / \
+    && cp -irvf bootstrap / \
+    && cp -irvf manifests / \
+    && rpm-ostree install \
+        NetworkManager-ovs \
+        open-vm-tools \
+        qemu-guest-agent \
+    && rpm -Uvh /tmp/rpms/* \
+    && rm -rf /var/cache /go \
+    && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
-      io.openshift.build.versions="machine-os=412.36.0"
+      io.openshift.build.versions="machine-os=FEDORA_COREOS_VERSION"
 ENTRYPOINT ["/noentry"]

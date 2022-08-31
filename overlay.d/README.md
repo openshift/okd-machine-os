@@ -1,1 +1,0 @@
-../fedora-coreos-config/overlay.d/README.md
