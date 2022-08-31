@@ -19,6 +19,9 @@ COPY overlay.d/ /tmp/overlay
 RUN cp -irvf /tmp/overlay/*/* / \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
+    && rpm-ostree override remove \
+        moby-engine \
+        zincati \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
