@@ -1,12 +1,10 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
-FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
 FROM quay.io/coreos-assembler/fcos:testing-devel
 ARG FEDORA_COREOS_VERSION=412.36.0
 
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
-COPY --from=mcd /usr/bin/machine-config-daemon /usr/libexec/machine-config-daemon
 COPY overlay.d/ /tmp/overlay
 RUN cat /etc/os-release \ 
     && rpm-ostree --version \
