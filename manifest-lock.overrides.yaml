@@ -1,1 +1,6 @@
-packages: {}
+packages:
+  filesystem:
+    evr: 3.16-2.fc36
+    metadata:
+      reason: https://github.com/coreos/fedora-coreos-tracker/issues/1273
+      type: pin

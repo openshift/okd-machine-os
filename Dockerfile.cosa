@@ -1,7 +1,7 @@
 FROM registry.ci.openshift.org/origin/4.11:machine-config-operator as mcd
 FROM registry.ci.openshift.org/origin/4.11:artifacts as artifacts
 
-FROM quay.io/coreos-assembler/coreos-assembler:latest AS build
+FROM quay.io/coreos-assembler/coreos-assembler:v36.20220505.2.0 AS build
 USER 1000
 WORKDIR /src
 COPY . .
