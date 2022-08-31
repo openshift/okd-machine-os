@@ -29,6 +29,7 @@ RUN cat /etc/os-release \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
+    && rm -f /tmp/rpms/openshift-clients-redistributable-*.rpm \
     && rpm -Uvh /tmp/rpms/* \
     && touch /etc/okd-booted.stamp \
     && rpm-ostree cleanup -m \
