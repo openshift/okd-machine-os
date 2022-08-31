@@ -16,7 +16,10 @@ WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=rpms /rpms/ /tmp/rpms
 COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
 COPY overlay.d/ /tmp/overlay
-RUN cp -irvf /tmp/overlay/*/* / \
+RUN cat /etc/os-release \ 
+    && rpm-ostree --version \
+    && ostree --version \
+    && cp -irvf /tmp/overlay/*/* / \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && rpm-ostree override remove \
