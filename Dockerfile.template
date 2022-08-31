@@ -9,6 +9,8 @@ COPY --from=artifacts /srv/repo/*.rpm /rpms/
 COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
 
 FROM quay.io/coreos-assembler/fcos:testing-devel
+ARG FEDORA_COREOS_VERSION=412.36.0
+
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=rpms /rpms/ /tmp/rpms
@@ -26,5 +28,5 @@ RUN cp -irvf /tmp/overlay/*/* / \
     && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
-      io.openshift.build.versions="machine-os=FEDORA_COREOS_VERSION"
+      io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
 ENTRYPOINT ["/noentry"]
