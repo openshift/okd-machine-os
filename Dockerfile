@@ -15,6 +15,9 @@ RUN cat /etc/os-release \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
+    && rpm-ostree override remove \
+        moby-engine \
+        zincati \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
