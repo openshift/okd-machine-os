@@ -25,6 +25,11 @@ RUN cat /etc/os-release \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree ex module enable cri-o:1.24 \
     && rpm-ostree ex module install cri-o:1.24/default \
+#   See https://github.com/coreos/rpm-ostree/issues/3738
+#   this can be done in the installer for now
+#   && rpm-ostree kargs \
+#       --replace mitigations=auto,nosmt=off \
+#       --append intel_pstate=disable \
     && touch /etc/okd-booted.stamp \
     && rpm-ostree cleanup -m \
     && rm -rf /var/cache /go \
