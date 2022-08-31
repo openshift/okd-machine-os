@@ -1,20 +1,12 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
-
-FROM registry.access.redhat.com/ubi8/ubi-minimal as rpms
-WORKDIR /rpms
-COPY crio.repo /etc/yum.repos.d
-RUN microdnf download crio cri-tools --archlist=x86_64
-COPY --from=artifacts /srv/repo/*.rpm /rpms/
-COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
-
 FROM quay.io/coreos-assembler/fcos:testing-devel
 ARG FEDORA_COREOS_VERSION=412.36.0
 
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
-COPY --from=rpms /rpms/ /tmp/rpms
-COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
+COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
+COPY --from=mcd /usr/bin/machine-config-daemon /usr/libexec/machine-config-daemon
 COPY overlay.d/ /tmp/overlay
 RUN cat /etc/os-release \ 
     && rpm-ostree --version \
@@ -29,8 +21,10 @@ RUN cat /etc/os-release \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
-    && rm -f /tmp/rpms/openshift-clients-redistributable-*.rpm \
-    && rpm -Uvh /tmp/rpms/* \
+        /tmp/rpms/openshift-clients-0.0.1-*.rpm \
+        /tmp/rpms/openshift-hyperkube-*.rpm \
+    && rpm-ostree ex module enable cri-o:1.24 \
+    && rpm-ostree ex module install cri-o:1.24/default \
     && touch /etc/okd-booted.stamp \
     && rpm-ostree cleanup -m \
     && rm -rf /var/cache /go \
