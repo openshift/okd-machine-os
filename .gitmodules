@@ -1,4 +1,0 @@
-[submodule "openshift-os"]
-	path = openshift-os
-	url = https://github.com/openshift/os
-	branch = "master"

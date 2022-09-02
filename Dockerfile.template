@@ -1,5 +1,6 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
+FROM registry.ci.openshift.org/origin/4.12:rhel-coreos-8 as rhcos
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal as rpms
 WORKDIR /rpms
@@ -13,8 +14,10 @@ COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=rpms /rpms/ /tmp/rpms
 COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
-COPY overlay.d/ /tmp/overlay
-RUN cp -irvf /tmp/overlay/*/* / \
+COPY --from=rhcos /usr/lib/systemd/system/gcp-routes.service /usr/lib/systemd/system/gcp-routes.service
+COPY --from=rhcos /usr/lib/systemd/system-preset/44-gcp-routes.preset /usr/lib/systemd/system-preset/44-gcp-routes.preset
+COPY --from=rhcos /usr/sbin/gcp-routes.sh /usr/sbin/gcp-routes.sh
+RUN cp -irvf overlay.d/99okd/* / \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && rpm-ostree install \
