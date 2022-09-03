@@ -4,6 +4,7 @@ FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /rpms
 COPY crio.repo /etc/yum.repos.d
-RUN microdnf download crio cri-tools --archlist=x86_64
+RUN microdnf download crio cri-tools --archlist=$(uname -m) \
+    && rm -rf /var/cache
 COPY --from=artifacts /srv/repo/*.rpm /rpms/
 COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
