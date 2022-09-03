@@ -3,5 +3,7 @@ FROM quay.io/coreos-assembler/fcos:testing-devel
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 RUN source /etc/os-release \
-    && sed "s;\${FEDORA_COREOS_VERSION};${OSTREE_VERSION%.*};g" Dockerfile.template > /tmp/Dockerfile \
+    && sed "s;\${FEDORA_COREOS_VERSION};${OSTREE_VERSION%.*};g" Dockerfile.template > /tmp/Dockerfile.generated \
+    # Temporily copy Dockerfile until location is updated in CI 
+    && cp /tmp/Dockerfile.generated /tmp/Dockerfile \
     && mkdir ./extensions
