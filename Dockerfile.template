@@ -24,6 +24,7 @@ RUN cat /etc/os-release \
         open-vm-tools \
         qemu-guest-agent \
     && rpm -Uvh /tmp/rpms/* \
+    && rpm-ostree cleanup -m \
     && rm -rf /var/cache /go \
     && ostree container commit
 LABEL io.openshift.release.operator=true \
