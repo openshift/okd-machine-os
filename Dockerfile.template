@@ -1,19 +1,11 @@
-FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
-FROM registry.ci.openshift.org/origin/4.12:machine-config-operator as mcd
-
-FROM registry.access.redhat.com/ubi8/ubi-minimal as rpms
-WORKDIR /rpms
-COPY crio.repo /etc/yum.repos.d
-RUN microdnf download crio cri-tools --archlist=x86_64
-COPY --from=artifacts /srv/repo/*.rpm /rpms/
-COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
+FROM registry.ci.openshift.org/origin/4.12:okd-rpms as rpms
 
 FROM quay.io/coreos-assembler/fcos:testing-devel
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=rpms /rpms/ /tmp/rpms
 COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
-RUN cat /etc/os-release \ 
+RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
     && cp -irvf overlay.d/*/* / \
