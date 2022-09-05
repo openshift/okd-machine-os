@@ -1,11 +1,11 @@
-FROM registry.ci.openshift.org/origin/4.12:okd-rpms as rpms
+FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
 FROM quay.io/coreos-assembler/fcos:testing-devel
 ARG FEDORA_COREOS_VERSION=412.36.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
-COPY --from=rpms /rpms/ /tmp/rpms
+COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
