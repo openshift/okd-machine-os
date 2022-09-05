@@ -13,12 +13,13 @@ RUN cat /etc/os-release \
     && systemctl enable gcp-routes gcp-hostname \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
+    && cp -ivf okd-copr.repo /etc/yum.repos.d/ \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
-        /tmp/rpms/cri-o-*.rpm \
-        /tmp/rpms/cri-tools-*.rpm \
+        cri-o \
+        cri-tools \
         /tmp/rpms/openshift-clients-[0-9]*.rpm \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
