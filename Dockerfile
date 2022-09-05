@@ -3,8 +3,8 @@ FROM registry.ci.openshift.org/origin/4.12:okd-rpms as rpms
 FROM quay.io/coreos-assembler/fcos:testing-devel
 ARG FEDORA_COREOS_VERSION=412.36.0
 
-COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
+COPY . .
 COPY --from=rpms /rpms/ /tmp/rpms
 RUN cat /etc/os-release \
     && rpm-ostree --version \
@@ -17,9 +17,12 @@ RUN cat /etc/os-release \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
-    && rpm -Uvh /tmp/rpms/* \
+        /tmp/rpms/cri-o-*.rpm \
+        /tmp/rpms/cri-tools-*.rpm \
+        /tmp/rpms/openshift-clients-[0-9]*.rpm \
+        /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
-    && rm -rf /var/cache /go \
+    && rm -rf /go /tmp/rpms /var/cache \
     && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
