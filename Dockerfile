@@ -6,7 +6,6 @@ ARG FEDORA_COREOS_VERSION=412.36.0
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY --from=rpms /rpms/ /tmp/rpms
-COPY --from=rpms /binaries/machine-config-daemon /usr/libexec/machine-config-daemon
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
