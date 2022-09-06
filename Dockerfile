@@ -1,11 +1,11 @@
-FROM registry.ci.openshift.org/origin/4.12:okd-rpms as rpms
+FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
 FROM quay.io/coreos-assembler/fcos:testing-devel
 ARG FEDORA_COREOS_VERSION=412.36.0
 
-COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
-COPY --from=rpms /rpms/ /tmp/rpms
+COPY . .
+COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
@@ -13,13 +13,18 @@ RUN cat /etc/os-release \
     && systemctl enable gcp-routes gcp-hostname \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
+    && cp -ivf okd-copr.repo /etc/yum.repos.d/ \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
-    && rpm -Uvh /tmp/rpms/* \
+        cri-o \
+        cri-tools \
+        /tmp/rpms/openshift-clients-[0-9]*.rpm \
+        /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
-    && rm -rf /var/cache /go \
+    && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
+    && rm -rf /go /tmp/rpms /var/cache \
     && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
