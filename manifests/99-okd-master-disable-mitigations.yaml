@@ -16,3 +16,4 @@ spec:
   kernelArguments:
     - mitigations=off
     - intel_pstate=disable
+    - spectre_v2=off
