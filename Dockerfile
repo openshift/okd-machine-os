@@ -1,7 +1,7 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
-FROM quay.io/coreos-assembler/fcos:testing-devel
-ARG FEDORA_COREOS_VERSION=412.36.0
+FROM quay.io/coreos-assembler/fcos:next-devel
+ARG FEDORA_COREOS_VERSION=412.37.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
