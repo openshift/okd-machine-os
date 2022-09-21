@@ -13,7 +13,7 @@ RUN cat /etc/os-release \
     && systemctl enable gcp-routes gcp-hostname \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
-    && cp -ivf okd-copr.repo /etc/yum.repos.d/ \
+    && cp -ivf *.repo /etc/yum.repos.d/ \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
@@ -22,10 +22,13 @@ RUN cat /etc/os-release \
         cri-tools \
         /tmp/rpms/openshift-clients-[0-9]*.rpm \
         /tmp/rpms/openshift-hyperkube-*.rpm \
+    && rpm-ostree override replace \
+         --experimental --freeze \
+         --from repo=coreos-continuous \
+         rpm-ostree rpm-ostree-libs \
     && rpm-ostree cleanup -m \
     && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
-    && rm -rf /go /tmp/rpms /var/cache \
-    && ostree container commit
+    && rm -rf /go /tmp/rpms /var/cache
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
