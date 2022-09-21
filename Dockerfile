@@ -1,6 +1,6 @@
 FROM registry.ci.openshift.org/origin/4.16:artifacts as artifacts
 
-FROM quay.io/fedora/fedora-coreos:testing-devel
+FROM quay.io/fedora/fedora-coreos:rawhide
 ARG FEDORA_COREOS_VERSION=416.39.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
