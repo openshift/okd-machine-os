@@ -26,6 +26,9 @@ RUN cat /etc/os-release \
          --experimental --freeze \
          --from repo=coreos-continuous \
          rpm-ostree rpm-ostree-libs \
+         https://kojipkgs.fedoraproject.org//packages/kernel/5.19.7/200.fc36/x86_64/kernel-5.19.7-200.fc36.x86_64.rpm \
+         https://kojipkgs.fedoraproject.org//packages/kernel/5.19.7/200.fc36/x86_64/kernel-core-5.19.7-200.fc36.x86_64.rpm \
+         https://kojipkgs.fedoraproject.org//packages/kernel/5.19.7/200.fc36/x86_64/kernel-modules-5.19.7-200.fc36.x86_64.rpm \
     && rpm-ostree cleanup -m \
     && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
     && rm -rf /go /tmp/rpms /var/cache
