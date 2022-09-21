@@ -24,7 +24,8 @@ RUN cat /etc/os-release \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
     && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
-    && rm -rf /go /tmp/rpms /var/cache \
+    && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
+    && rm -rf /go /tmp/rpms /var/cache
     && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
