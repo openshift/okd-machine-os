@@ -6,6 +6,7 @@ ARG FEDORA_COREOS_VERSION=412.37.0
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
 COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
+ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
@@ -23,18 +24,12 @@ RUN cat /etc/os-release \
         /tmp/rpms/openshift-clients-[0-9]*.rpm \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cliwrap install-to-root / \
-    && rpm-ostree override replace \
-         --experimental --freeze \
-         --from repo=coreos-continuous \
-         rpm-ostree rpm-ostree-libs \
-         https://kojipkgs.fedoraproject.org//packages/kernel/5.18.0/60.fc37/x86_64/kernel-5.18.0-60.fc37.x86_64.rpm \
-         https://kojipkgs.fedoraproject.org//packages/kernel/5.18.0/60.fc37/x86_64/kernel-core-5.18.0-60.fc37.x86_64.rpm \
-         https://kojipkgs.fedoraproject.org//packages/kernel/5.18.0/60.fc37/x86_64/kernel-modules-5.18.0-60.fc37.x86_64.rpm \
+    && rpm-ostree override replace https://koji.fedoraproject.org/koji/buildinfo?buildID=1969515 \
+    && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
-    && rm -rf /go /tmp/rpms /var/cache \
-    && ostree container commit
+    && rm -rf /go /tmp/rpms /var/cache
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
