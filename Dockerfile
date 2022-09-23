@@ -23,7 +23,6 @@ RUN cat /etc/os-release \
         /tmp/rpms/openshift-clients-[0-9]*.rpm \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
-    && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /tmp/rpms /var/cache
     && ostree container commit
