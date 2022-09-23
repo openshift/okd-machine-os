@@ -6,6 +6,7 @@ ARG FEDORA_COREOS_VERSION=412.37.0
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
 COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
+ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \

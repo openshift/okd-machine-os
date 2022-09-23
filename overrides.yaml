@@ -1,0 +1,7 @@
+ex-override-replace:
+  - from:
+      repo: coreos-continuous
+    packages:
+      # Pull the latest fix for https://issues.redhat.com/browse/OKD-63
+      - rpm-ostree
+      - rpm-ostree-libs
