@@ -31,7 +31,6 @@ RUN cat /etc/os-release \
          https://kojipkgs.fedoraproject.org//packages/kernel/5.18.0/60.fc37/x86_64/kernel-core-5.18.0-60.fc37.x86_64.rpm \
          https://kojipkgs.fedoraproject.org//packages/kernel/5.18.0/60.fc37/x86_64/kernel-modules-5.18.0-60.fc37.x86_64.rpm \
     && rpm-ostree cleanup -m \
-    && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /tmp/rpms /var/cache \
     && ostree container commit
