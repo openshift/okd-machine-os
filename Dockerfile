@@ -32,4 +32,3 @@ RUN cat /etc/os-release \
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
-ENTRYPOINT ["/noentry"]
