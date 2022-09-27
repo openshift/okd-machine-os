@@ -28,7 +28,8 @@ RUN cat /etc/os-release \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
-    && rm -rf /go /tmp/rpms /var/cache
+    && rm -rf /go /var/lib/unbound \
+    && ostree container commit
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
