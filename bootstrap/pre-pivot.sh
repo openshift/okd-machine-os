@@ -13,4 +13,4 @@ rpm-ostree rebase --experimental "ostree-unverified-registry:${MACHINE_CONFIG_OS
 # Remove mitigations kargs
 rpm-ostree kargs --delete mitigations=auto,nosmt
 touch /opt/openshift/.pivot-done
-systemctl reboot
+rpm-ostree ex apply-live || systemctl reboot
