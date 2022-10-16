@@ -5,7 +5,7 @@ ARG FEDORA_COREOS_VERSION=412.37.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
-COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
+COPY --from=artifacts /srv/repo/ /tmp/rpms/
 ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
     && rpm-ostree --version \
@@ -27,6 +27,7 @@ RUN cat /etc/os-release \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
     && ostree container commit
+
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
