@@ -64,7 +64,6 @@ ostree-layers:
   - overlay/06gcp-routes
   - overlay/08nouveau
   - overlay/09misc
-  - overlay/14NetworkManager-plugins
   - overlay/15fcos
   - overlay/20platform-chrony
   - overlay/99okd
