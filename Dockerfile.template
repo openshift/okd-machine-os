@@ -6,5 +6,5 @@ COPY manifests/ /manifests/
 COPY bootstrap/ /bootstrap/
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
-      io.openshift.build.versions="machine-os=411.36.2"
+      io.openshift.build.versions="machine-os=411.36.3"
 ENTRYPOINT ["/noentry"]
