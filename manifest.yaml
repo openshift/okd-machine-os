@@ -14,8 +14,8 @@ ref: fedora/${basearch}/coreos/okd
 repos:
   - fedora
   - fedora-updates
-  - fedora-modular
-  - fedora-updates-modular
+  - crio
+  - cri-tools
   - okd-rpms
   - updates-archive
 
@@ -30,13 +30,6 @@ packages:
   - fedora-repos-archive
   # User metrics
   - fedora-coreos-pinger
-
-modules:
-  enable:
-    - cri-o:1.24
-  install:
-    # cri-o and cri-tools
-    - cri-o:1.24/default
 
 # We include hours/minutes to avoid version number reuse
 automatic-version-prefix: "411.36.<date:%Y%m%d%H%M>"
