@@ -1,11 +1,12 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
-FROM quay.io/coreos-assembler/fcos:testing-devel
-ARG FEDORA_COREOS_VERSION=412.36.0
+FROM quay.io/fedora/fedora-coreos:next-devel
+ARG FEDORA_COREOS_VERSION=412.37.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
-COPY --from=artifacts /srv/repo/*.rpm /tmp/rpms/
+COPY --from=artifacts /srv/repo/ /tmp/rpms/
+ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
@@ -23,10 +24,10 @@ RUN cat /etc/os-release \
         /tmp/rpms/openshift-clients-[0-9]*.rpm \
         /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
-    && sed -i 's/^enabled=1/enabled=0/g' /etc/yum.repos.d/*.repo \
-    && rm -rf /go /tmp/rpms /var/cache \
+    && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
+    && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
     && ostree container commit
+
 LABEL io.openshift.release.operator=true \
       io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
       io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
-ENTRYPOINT ["/noentry"]
