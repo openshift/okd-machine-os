@@ -25,7 +25,6 @@ RUN cat /etc/os-release \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
     && rpm-ostree cliwrap install-to-root / \
-    && rpm-ostree override replace https://koji.fedoraproject.org/koji/buildinfo?buildID=1969515 \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
