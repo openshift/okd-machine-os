@@ -6,3 +6,6 @@ COPY okd-copr.repo /etc/yum.repos.d
 RUN microdnf download cri-o cri-tools --archlist=$(arch) \
     && rm -rf /var/cache
 COPY --from=artifacts /srv/repo/*.rpm /rpms/
+LABEL io.k8s.display-name="OKD RPMs" \
+      io.k8s.description="This image contains necessary RPMs to start kubelet with cri-o" \
+      io.openshift.tags="openshift"
