@@ -1,6 +1,9 @@
 FROM registry.ci.openshift.org/origin/4.13:artifacts as artifacts
+FROM registry.ci.openshift.org/origin/4.13:machine-config-operator as mcd
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal
+WORKDIR /binaries
+COPY --from=mcd /usr/bin/machine-config-daemon /binaries/machine-config-daemon
 WORKDIR /rpms
 COPY okd-copr.repo /etc/yum.repos.d
 RUN microdnf download cri-o cri-tools --archlist=$(arch) \
