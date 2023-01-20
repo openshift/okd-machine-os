@@ -1,5 +1,5 @@
 # Label okd-machine-os image with Fedora CoreOS version extracted from /etc/release
-FROM quay.io/fedora/fedora-coreos:next-devel
+FROM quay.io/fedora/fedora-coreos:stable
 COPY . /go/src/github.com/openshift/okd-machine-os
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 RUN source /etc/os-release \
