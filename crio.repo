@@ -1,0 +1,16 @@
+[cri-o_1.25]
+name=devel:kubic:libcontainers:stable:cri-o:1.25 (Fedora_37)
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_37/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_37/repodata/repomd.xml.key
+enabled=1
+
+[cri-tools]
+name=Stable Releases of Upstream github.com/containers packages (Fedora_37)
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_37/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_37/repodata/repomd.xml.key
+enabled=1
+

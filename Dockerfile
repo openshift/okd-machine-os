@@ -13,7 +13,7 @@ RUN cat /etc/os-release \
     && systemctl enable gcp-routes gcp-hostname \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
-    && cp -ivf okd-copr.repo /etc/yum.repos.d/ \
+    && cp -ivf crio.repo /etc/yum.repos.d/ \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
