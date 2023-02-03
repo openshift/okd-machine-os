@@ -1,6 +1,6 @@
 FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
-FROM quay.io/fedora/fedora-coreos:stable
+FROM registry.ci.openshift.org/origin/4.12:machine-os-content
 ARG FEDORA_COREOS_VERSION=412.37.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
@@ -20,8 +20,6 @@ RUN cat /etc/os-release \
         qemu-guest-agent \
         cri-o \
         cri-tools \
-        /tmp/rpms/openshift-clients-[0-9]*.rpm \
-        /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
