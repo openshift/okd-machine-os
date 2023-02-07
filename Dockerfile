@@ -21,7 +21,6 @@ RUN cat /etc/os-release \
         cri-o \
         cri-tools \
     && rpm-ostree cleanup -m \
-    && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
     && ostree container commit
 
