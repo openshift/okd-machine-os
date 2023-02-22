@@ -8,3 +8,5 @@ enable fix-resolv-conf-coredns.service
 disable coreos-check-cgroups.service
 # Enable ovirt service
 enable qemu-guest-agent.service
+# Add custom SELinux rules
+enable okd-selinux.service

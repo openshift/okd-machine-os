@@ -1,0 +1,6 @@
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/semodule -i /usr/lib/okd/selinux-fixes.cil
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
