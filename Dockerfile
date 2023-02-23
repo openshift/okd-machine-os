@@ -20,6 +20,7 @@ RUN cat /etc/os-release \
         qemu-guest-agent \
         cri-o \
         cri-tools \
+	netcat \
     && rpm-ostree cleanup -m \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
     && ostree container commit
