@@ -11,7 +11,6 @@ RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
     && cp -irvf overlay.d/*/* / \
-    && systemctl preset-all \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
@@ -29,6 +28,7 @@ RUN cat /etc/os-release \
     && rpm-ostree cleanup -m \
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     && rm -rf /go /var/lib/unbound /tmp/rpms \
+    && systemctl preset-all \
     && ostree container commit
 
 LABEL io.openshift.release.operator=true \
