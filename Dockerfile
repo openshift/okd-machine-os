@@ -11,7 +11,7 @@ RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
     && cp -irvf overlay.d/*/* / \
-    && systemctl enable gcp-routes gcp-hostname \
+    && systemctl preset-all \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
