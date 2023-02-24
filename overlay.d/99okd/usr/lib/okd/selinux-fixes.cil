@@ -1,0 +1,2 @@
+; https://github.com/okd-project/okd/issues/1438
+(allow iscsid_t self (capability (dac_override)))
