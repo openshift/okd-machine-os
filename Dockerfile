@@ -10,7 +10,6 @@ RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
     && cp -irvf overlay.d/*/* / \
-    && systemctl enable gcp-routes gcp-hostname \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf crio.repo /etc/yum.repos.d/ \
@@ -23,6 +22,7 @@ RUN cat /etc/os-release \
 	netcat \
     && rpm-ostree cleanup -m \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
+    && systemctl preset-all \
     && ostree container commit
 
 LABEL io.openshift.release.operator=true \
