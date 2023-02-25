@@ -19,7 +19,8 @@ RUN cat /etc/os-release \
         qemu-guest-agent \
         cri-o \
         cri-tools \
-	netcat \
+        netcat \
+    && rpm-ostree override replace /tmp/rpms/openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
     && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
     && systemctl preset-all \
