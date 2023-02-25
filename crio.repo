@@ -1,9 +1,9 @@
 [cri-o_1.25]
-name=devel:kubic:libcontainers:stable:cri-o:1.25 (Fedora_37)
+name=devel:kubic:libcontainers:stable:cri-o:1.25 (Fedora_36)
 type=rpm-md
-baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_37/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_36/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_37/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.25/Fedora_36/repodata/repomd.xml.key
 enabled=1
 
 [cri-tools]
@@ -13,4 +13,3 @@ baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/
 gpgcheck=1
 gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_37/repodata/repomd.xml.key
 enabled=1
-
