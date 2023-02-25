@@ -1,2 +1,4 @@
 ; https://github.com/okd-project/okd/issues/1438
 (allow iscsid_t self (capability (dac_override)))
+; iptables wrapper script fix
+(allow iptables_t container_runtime_tmpfs_t (chr_file (read write)))
