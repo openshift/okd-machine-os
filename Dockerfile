@@ -8,30 +8,30 @@ COPY . .
 COPY --from=artifacts /srv/repo/ /tmp/rpms/
 ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
-    && rpm-ostree --version \
-    && ostree --version \
-    && cp -irvf overlay.d/*/* / \
-    && cp -irvf bootstrap / \
-    && cp -irvf manifests / \
-    && cp -ivf *.repo /etc/yum.repos.d/ \
-    && rpm-ostree install \
-        NetworkManager-ovs \
-        open-vm-tools \
-        qemu-guest-agent \
-        cri-o \
-        cri-tools \
-	netcat \
-        # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
-        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
-        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
-    && rpm-ostree cliwrap install-to-root / \
-    && rpm-ostree ex rebuild \
-    && rpm-ostree cleanup -m \
-    && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
-    && rm -rf /go /var/lib/unbound /tmp/rpms \
-    && systemctl preset-all \
-    && ostree container commit
+  && rpm-ostree --version \
+  && ostree --version \
+  && cp -irvf overlay.d/*/* / \
+  && cp -irvf bootstrap / \
+  && cp -irvf manifests / \
+  && cp -ivf *.repo /etc/yum.repos.d/ \
+  && rpm-ostree install \
+  NetworkManager-ovs \
+  open-vm-tools \
+  qemu-guest-agent \
+  https://download.copr.fedorainfracloud.org/results/@OKD/okd/fedora-37-x86_64/05581389-cri-o/cri-o-1.26.0-1.20230301060844934972.main.166.g2fc918d4b.fc37.x86_64.rpm \
+  cri-tools \
+  netcat \
+  # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
+  /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
+  /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
+  && rpm-ostree cliwrap install-to-root / \
+  && rpm-ostree ex rebuild \
+  && rpm-ostree cleanup -m \
+  && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
+  && rm -rf /go /var/lib/unbound /tmp/rpms \
+  && systemctl preset-all \
+  && ostree container commit
 
 LABEL io.openshift.release.operator=true \
-      io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
-      io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
+  io.openshift.build.version-display-names="machine-os=Fedora CoreOS" \
+  io.openshift.build.versions="machine-os=${FEDORA_COREOS_VERSION}"
