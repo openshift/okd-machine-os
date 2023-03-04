@@ -1,6 +1,6 @@
 [okd-copr]
 name=Copr repo for OKD
-baseurl=https://download.copr.fedorainfracloud.org/results/@OKD/okd/fedora-36-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/@OKD/okd/fedora-37-$basearch/
 gpgcheck=1
 gpgkey=https://download.copr.fedorainfracloud.org/results/@OKD/okd/pubkey.gpg
 repo_gpgcheck=0
