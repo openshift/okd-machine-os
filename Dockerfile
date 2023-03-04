@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/origin/4.13:artifacts as artifacts
+FROM registry.ci.openshift.org/origin/4.14:artifacts as artifacts
 
 FROM quay.io/fedora/fedora-coreos:testing-devel
 ARG FEDORA_COREOS_VERSION=413.37.0
