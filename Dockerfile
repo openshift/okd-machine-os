@@ -20,14 +20,17 @@ RUN cat /etc/os-release \
         qemu-guest-agent \
         cri-o \
         cri-tools \
-	netcat \
+        netcat \
         # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
     && rpm-ostree cliwrap install-to-root / \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
+    # Symlink ovs-vswitchd to dpdk version of OVS
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
+    # Symlink nc to netcat due to known issue in rpm-ostree - https://github.com/coreos/rpm-ostree/issues/1614
+    && ln -s /usr/bin/netcat /usr/bin/nc \
     && rm -rf /go /var/lib/unbound /tmp/rpms \
     && systemctl preset-all \
     && ostree container commit
