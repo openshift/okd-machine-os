@@ -10,7 +10,7 @@ ADD overrides.yaml /etc/rpm-ostree/origin.d/overrides.yaml
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
-    && cp -irvf overlay.d/*/* / \
+    && for overlay in overlay.d/*; do cp -rvf ${overlay}/* /; done \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
