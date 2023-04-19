@@ -9,7 +9,7 @@ COPY --from=artifacts /srv/repo/ /tmp/rpms/
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
-    && cp -irvf overlay.d/*/* / \
+    && for overlay in overlay.d/*; do cp -rvf ${overlay}/* /; done \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf crio.repo /etc/yum.repos.d/ \
