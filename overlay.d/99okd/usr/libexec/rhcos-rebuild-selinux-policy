@@ -1,0 +1,9 @@
+#!/bin/bash
+# Executed by rhcos-selinux-policy-upgrade.service
+set -euo pipefail
+
+ls -al /{usr/,}etc/selinux/targeted/policy/policy.33
+if ! cmp --quiet /{usr/,}etc/selinux/targeted/policy/policy.33; then
+    echo "Recompiling policy due to local modifications as workaround for https://bugzilla.redhat.com/2057497"
+    semodule -B
+fi
