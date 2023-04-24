@@ -2,10 +2,11 @@ FROM registry.ci.openshift.org/origin/4.12:artifacts as artifacts
 
 FROM quay.io/fedora/fedora-coreos:stable
 ARG FEDORA_COREOS_VERSION=412.37.1
+ARG ARCHITECTURE=x86_64
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
-COPY --from=artifacts /srv/repo/ /tmp/rpms/
+COPY --from=artifacts /srv/repo/${ARCHITECTURE} /tmp/rpms/
 RUN cat /etc/os-release \
     && rpm-ostree --version \
     && ostree --version \
