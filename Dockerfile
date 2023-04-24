@@ -20,14 +20,14 @@ RUN cat /etc/os-release \
         cri-o \
         cri-tools \
         netcat \
-        /tmp/rpms/openshift-clients-[0-9]*.rpm \
-        /tmp/rpms/openshift-hyperkube-*.rpm \
+        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
+        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
     && rpm-ostree cleanup -m \
     # Symlink ovs-vswitchd to dpdk version of OVS
     && ln -s /usr/sbin/ovs-vswitchd.dpdk /usr/sbin/ovs-vswitchd \
     # Symlink nc to netcat due to known issue in rpm-ostree - https://github.com/coreos/rpm-ostree/issues/1614
     && ln -s /usr/bin/netcat /usr/bin/nc \
-    && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound \
+    && rm -rf /go /tmp/rpms /var/cache /var/lib/unbound /tmp/rpms \
     && systemctl preset-all \
     && ostree container commit
 
