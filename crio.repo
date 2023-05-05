@@ -1,17 +1,15 @@
 [cri-o_1.26]
-name=devel:kubic:libcontainers:stable:cri-o:1.26 (Fedora_37)
+name=devel:kubic:libcontainers:stable:cri-o:1.26 (Fedora_38)
 type=rpm-md
-baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.26/Fedora_37/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.26/Fedora_38/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.26/Fedora_37/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.26/Fedora_38/repodata/repomd.xml.key
 enabled=1
 
 [cri-tools]
-name=Stable Releases of Upstream github.com/containers packages (Fedora_37)
+name=Stable Releases of Upstream github.com/containers packages (Fedora_38)
 type=rpm-md
-baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_37/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_38/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_37/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_38/repodata/repomd.xml.key
 enabled=1
-
-
