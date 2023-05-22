@@ -2,3 +2,10 @@
 (allow iscsid_t self (capability (dac_override)))
 ; iptables wrapper script fix
 (allow iptables_t container_runtime_tmpfs_t (chr_file (read write)))
+; https://github.com/okd-project/okd/discussions/1611
+(typeattributeset cil_gen_require ifconfig_t)
+(typeattributeset cil_gen_require container_runtime_tmpfs_t)
+(typeattributeset cil_gen_require container_runtime_t)
+(allow ifconfig_t container_runtime_t (fifo_file (append)))
+(allow ifconfig_t container_runtime_tmpfs_t (chr_file (read write)))
+(allow ifconfig_t self (capability (dac_override dac_read_search sys_ptrace)))
