@@ -15,6 +15,8 @@ RUN cat /etc/os-release \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
     && rpm-ostree install \
+        libreswan \
+        NetworkManager-libreswan \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
