@@ -15,4 +15,5 @@ spec:
       version: 3.2.0
   kernelArguments:
     - mitigations=off
-    - intel_pstate=disable
+    - systemd.unified_cgroup_hierarchy=1
+    - systemd.legacy_systemd_cgroup_controller=0
