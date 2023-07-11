@@ -15,4 +15,3 @@ spec:
       version: 3.2.0
   kernelArguments:
     - mitigations=off
-    - intel_pstate=disable
