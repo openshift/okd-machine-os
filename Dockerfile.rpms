@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/origin/4.15:artifacts as artifacts
+FROM registry.ci.openshift.org/origin/4.14:artifacts as artifacts
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /rpms
