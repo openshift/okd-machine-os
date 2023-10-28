@@ -1,7 +1,7 @@
 FROM registry.ci.openshift.org/origin/4.15:artifacts as artifacts
 
-FROM quay.io/fedora/fedora-coreos:testing-devel
-ARG FEDORA_COREOS_VERSION=415.38.0
+FROM quay.io/fedora/fedora-coreos:next
+ARG FEDORA_COREOS_VERSION=415.39.0
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
@@ -25,6 +25,11 @@ RUN cat /etc/os-release \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
     && rpm-ostree cliwrap install-to-root / \
+    && rpm-ostree override replace \
+    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.4/300.fc39/x86_64/kernel-6.5.4-300.fc39.x86_64.rpm \
+    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.4/300.fc39/x86_64/kernel-core-6.5.4-300.fc39.x86_64.rpm \
+    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.4/300.fc39/x86_64/kernel-modules-6.5.4-300.fc39.x86_64.rpm \
+    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.4/300.fc39/x86_64/kernel-modules-core-6.5.4-300.fc39.x86_64.rpm \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     # Symlink ovs-vswitchd to dpdk version of OVS
