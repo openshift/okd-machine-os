@@ -2,7 +2,6 @@ FROM registry.ci.openshift.org/origin/4.14:artifacts as artifacts
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /rpms
-COPY okd-copr.repo /etc/yum.repos.d
 RUN microdnf download cri-o cri-tools --archlist=$(arch) \
     && rm -rf /var/cache
 COPY --from=artifacts /srv/repo/*.rpm /rpms/
