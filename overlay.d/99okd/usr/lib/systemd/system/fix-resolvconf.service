@@ -1,0 +1,19 @@
+[Unit]
+Description=Fix resolv.conf link after disabling systemd-resolvd
+Documentation=
+Before=NetworkManager.service
+# After disabling systemd-resolved, the symlink /etc/resolv.conf is broken.
+# The network manager is configured to manage the resolv.conf as a file, rather than a symlink in /usr/lib/NetworkManager/conf.d/99-okd-dns.conf
+# This service fixes the symlink after disabling systemd-resolvd and turns it into a file manageable by NetworkManager.
+ConditionPathIsSymbolicLink=/etc/resolv.conf
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStartPre=/usr/bin/rm -f /etc/resolv.conf
+ExecStart=/usr/bin/touch /etc/resolv.conf
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
