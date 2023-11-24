@@ -25,11 +25,6 @@ RUN cat /etc/os-release \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
     && rpm-ostree cliwrap install-to-root / \
-    && rpm-ostree override replace \
-    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.5/200.fc38/x86_64/kernel-6.5.5-200.fc38.x86_64.rpm \
-    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.5/200.fc38/x86_64/kernel-core-6.5.5-200.fc38.x86_64.rpm \
-    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.5/200.fc38/x86_64/kernel-modules-6.5.5-200.fc38.x86_64.rpm \
-    https://kojipkgs.fedoraproject.org//packages/kernel/6.5.5/200.fc38/x86_64/kernel-modules-core-6.5.5-200.fc38.x86_64.rpm \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     # Symlink ovs-vswitchd to dpdk version of OVS
