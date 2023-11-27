@@ -1,9 +1,9 @@
-# Disable systemd-resolved as kubelet can't with it yet
-disable systemd-resolved.service
-# Enable fix-resolvconf.service to re-establish /etc/resolv.conf as a plain file
-enable fix-resolvconf.service
 # Fetch GCP hostnames via afterburn
 enable gcp-hostnames.service
+# Remove "search ." from /run/systemd/resolve/resolv.conf if it exists
+enable fix-resolv-conf-dot.service
+# Fix resolve.conf issue with coreDNS 
+enable fix-resolv-conf-coredns.service
 # Skip cgroups warning
 disable coreos-check-cgroups.service
 # Enable ovirt service
