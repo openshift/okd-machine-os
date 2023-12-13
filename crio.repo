@@ -1,0 +1,15 @@
+[cri-o]
+name=CRI-O v1.28 (Stable) (rpm)
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/isv:/kubernetes:/addons:/cri-o:/stable:/v1.28/rpm/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/isv:/kubernetes:/addons:/cri-o:/stable:/v1.28/rpm/repodata/repomd.xml.key
+enabled=1
+
+[cri-tools]
+name=Stable Releases of Upstream github.com/containers packages (Fedora_38)
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_38/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Fedora_38/repodata/repomd.xml.key
+enabled=1
