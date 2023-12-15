@@ -1,7 +1,7 @@
 FROM registry.ci.openshift.org/origin/4.14:artifacts as artifacts
 
 FROM quay.io/openshift/okd-content@sha256:b85f120103b2e92e35999203d1ad1bc3f2e6a33f2aa97c7a8b21b0b62d5c96f0
-ARG FEDORA_COREOS_VERSION=414.38.1
+ARG FEDORA_COREOS_VERSION=414.38.2
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
