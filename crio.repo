@@ -1,9 +1,9 @@
-[cri-o]
-name=CRI-O v1.28 (Stable) (rpm)
+[cri-o_1.28]
+name=devel:kubic:libcontainers:stable:cri-o:1.28 (Fedora_39)
 type=rpm-md
-baseurl=https://download.opensuse.org/repositories/isv:/kubernetes:/addons:/cri-o:/stable:/v1.28/rpm/
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.28/Fedora_39/
 gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/isv:/kubernetes:/addons:/cri-o:/stable:/v1.28/rpm/repodata/repomd.xml.key
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.28/Fedora_39/repodata/repomd.xml.key
 enabled=1
 
 [cri-tools]
