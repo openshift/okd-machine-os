@@ -14,12 +14,12 @@ RUN cat /etc/os-release \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
+    && rpm-ostree install cri-o --disablerepo='*' --enablerepo='cri-o' \
+    && rpm-ostree install cri-tools --disablerepo='*' --enablerepo='cri-tools' \
     && rpm-ostree install \
         NetworkManager-ovs \
         open-vm-tools \
         qemu-guest-agent \
-        cri-o \
-        cri-tools \
         netcat \
         # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
