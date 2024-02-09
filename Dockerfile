@@ -1,7 +1,7 @@
 FROM registry.ci.openshift.org/origin/4.15:artifacts as artifacts
 
 FROM quay.io/fedora/fedora-coreos:stable
-ARG FEDORA_COREOS_VERSION=415.39.1
+ARG FEDORA_COREOS_VERSION=415.39.2
 
 WORKDIR /go/src/github.com/openshift/okd-machine-os
 COPY . .
