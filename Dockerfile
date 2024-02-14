@@ -21,6 +21,7 @@ RUN cat /etc/os-release \
         open-vm-tools \
         qemu-guest-agent \
         netcat \
+        /tmp/rpms/ecr-credential-provider-*.rpm \
         # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
