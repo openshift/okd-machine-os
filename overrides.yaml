@@ -1,11 +1,3 @@
 override-remove:
  - moby-engine
  - zincati
-
-ex-override-replace:
-  - from:
-      repo: updates
-    packages:
-      # Pull the latest fix for https://github.com/okd-project/okd/issues/1481
-      - rpm-ostree
-      - rpm-ostree-libs
