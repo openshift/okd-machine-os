@@ -14,6 +14,7 @@ RUN cat /etc/os-release \
     && cp -irvf bootstrap / \
     && cp -irvf manifests / \
     && cp -ivf *.repo /etc/yum.repos.d/ \
+    && rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo \
     && rpm-ostree install cri-o --disablerepo='*' --enablerepo='cri-o' \
     && rpm-ostree install cri-tools --disablerepo='*' --enablerepo='cri-tools' \
     && rpm-ostree install \
@@ -24,8 +25,7 @@ RUN cat /etc/os-release \
         /tmp/rpms/ecr-credential-provider-*.rpm \
         # TODO: temporary fix in the next two rows: see okd-project/okd-payload-pipeline#15
         /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-clients-[0-9]*.rpm \
-        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-hyperkube-*.rpm \
-        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-kube*.rpm \
+        /tmp/rpms/$([ -d /tmp/rpms/$(uname -m) ] && echo $(uname -m)/)openshift-kubelet-[0-9]*.rpm \
     && rpm-ostree ex rebuild \
     && rpm-ostree cleanup -m \
     # Symlink ovs-vswitchd to dpdk version of OVS
